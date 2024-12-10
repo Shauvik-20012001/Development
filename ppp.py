@@ -36,22 +36,21 @@ elif page == "User Input":
     
     # Date of Birth input (DOB)
     LOB = st.selectbox("Select your Center:", ["SE", "SIB", "SIC", "Student"])
-
     
     # Center selection
-    center = st.selectbox("Select your Center:", ["Bhopal", "Indore", "Vijaywada", "MYS" , "Noida" , "Kolkata" , "Coimbatore" , "Ranchi"])
+    center = st.selectbox("Select your Center:", ["Bhopal", "Indore", "Vijaywada", "MYS", "Noida", "Kolkata", "Coimbatore", "Ranchi"])
     
     # Partner Name (List format)
-    partner_name = st.selectbox("Select Partner Name:", ["Tarus", "TTBS", "MAGNUM" , "ICCS" , "INHOUSE" , "HRH NEXT" , "AYUDA"])
+    partner_name = st.selectbox("Select Partner Name:", ["Tarus", "TTBS", "MAGNUM", "ICCS", "INHOUSE", "HRH NEXT", "AYUDA"])
     
     # Date of Audit (Date format)
     date_of_audit = st.date_input("Enter Date of Audit:")
     
     # Week (List format)
-    week = st.selectbox("Select Week:", ["Week 1", "Week 2", "Week 3", "Week 4" , "Week 5"])
+    week = st.selectbox("Select Week:", ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"])
     
     # Audit Category (List format)
-    audit_category = st.selectbox("Select Audit Category:", ["Floor" , "RCA"])
+    audit_category = st.selectbox("Select Audit Category:", ["Floor", "RCA"])
     
     # EMP ID (Non-numeric validation)
     emp_id = st.text_input("Enter EMP ID:")
@@ -72,8 +71,7 @@ elif page == "User Input":
     audit_name = st.text_input("Enter Audit Name:")
     
     # Auditor Center (List validation)
-    auditor_center = st.selectbox("Select Auditor Center:", ["Indore", "Vijaywada",
-                                                             "Mysore", "Bhopal" , "Noida" , "Kolkata" , "Coimbatore" , "HYD" , "Ranchi"])
+    auditor_center = st.selectbox("Select Auditor Center:", ["Indore", "Vijaywada", "Mysore", "Bhopal", "Noida", "Kolkata", "Coimbatore", "HYD", "Ranchi"])
     
     # Auditor Designation (List validation)
     auditor_designation = st.selectbox("Select Auditor Designation:", ["Designation 1", "Designation 2", "Designation 3"])
@@ -106,52 +104,50 @@ elif page == "User Input":
     motive_of_call = st.selectbox("Motive of the Call?", ["Yes", "No"])
     
     # Probe / Confirm User's Profession (Yes/No validation)
-    probe_confirm_user_profession = st.selectbox("Probe / Confirm User's Profession?", ["Yes", "No" , "NA"])
+    probe_confirm_user_profession = st.selectbox("Probe / Confirm User's Profession?", ["Yes", "No", "NA"])
 
     # Current Profile Stage / Previous Interaction
-    Current_Profile_Stage_Previous_Interaction = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "No" , "FATAL"])
+    Current_Profile_Stage_Previous_Interaction = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "No", "FATAL"])
 
-    Probe_If_User_have_any_doc_releated_Profession_Study_Business = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "No" , "NA"])
+    Probe_If_User_have_any_doc_releated_Profession_Study_Business = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "No", "NA"])
 
-    Guide_User_with_required_documents_One_by_one = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "Fatal" , "NA"])
+    Guide_User_with_required_documents_One_by_one = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "Fatal", "NA"])
 
-    Urgency = st.selectbox("Urgency", ["Yes", "Fatal" , "NA"])
+    Urgency = st.selectbox("Urgency", ["Yes", "Fatal", "NA"])
 
-    Objection_Handling = st.selectbox("Objection Handling", ["Yes", "Fatal" , "NA"])
+    Objection_Handling = st.selectbox("Objection Handling", ["Yes", "Fatal", "NA"])
 
-    Explained_user_how_to_take_first_loan  = st.selectbox("Explained user how to take first loan", ["Yes", "Fatal" , "NA"])
+    Explained_user_how_to_take_first_loan = st.selectbox("Explained user how to take first loan", ["Yes", "Fatal", "NA"])
 
-    Reconfirmation_Call_back_script   = st.selectbox("Reconfirmation / Call back script ", ["Yes", "Fatal" , "NA"])
+    Reconfirmation_Call_back_script = st.selectbox("Reconfirmation / Call back script", ["Yes", "Fatal", "NA"])
 
-    Two_way_communication = st.selectbox("Two way communication", ["Yes" , "NO"])
+    Two_way_communication = st.selectbox("Two way communication", ["Yes", "NO"])
 
-    Active_listening_and_Dead_Air = st.selectbox("Two way communication", ["Yes" , "NO"])
+    Active_listening_and_Dead_Air = st.selectbox("Active listening and Dead Air", ["Yes", "NO"])
 
-    Professional_Communication = st.selectbox("Professional Communication", ["Yes" , "NO"])
+    Professional_Communication = st.selectbox("Professional Communication", ["Yes", "NO"])
 
-    Information = st.selectbox("Information", ["Yes" , "NO"])
+    Information = st.selectbox("Information", ["Yes", "NO"])
 
-    Follow_Up = st.selectbox("Follow Up", ["Yes" , "NO"])
+    Follow_Up = st.selectbox("Follow Up", ["Yes", "NO"])
 
-    Tagging = st.selectbox("Tagging", ["Yes" ,"NA" , "NO"])
+    Tagging = st.selectbox("Tagging", ["Yes", "NA", "NO"])
 
-    Fatal = st.selectbox("Fatal", ["Yes" , "NO"])
+    Fatal = st.selectbox("Fatal", ["Yes", "NO"])
 
     Remarks = st.text_input("Remarks:")
 
-    Agent_Feedback_Status  = st.selectbox("Agent Feedback Status", ["Closed" , "Open"])
+    Agent_Feedback_Status = st.selectbox("Agent Feedback Status", ["Closed", "Open"])
 
-    Profile_completion_status_prior_to_call = st.selectbox("Profile completion status prior to call ", 
-                                                           ["Blank profile" , "Partially complete" , "Almost complete"])
+    Profile_completion_status_prior_to_call = st.selectbox("Profile completion status prior to call", ["Blank profile", "Partially complete", "Almost complete"])
 
-    PIP_SFA_Status = st.selectbox("PIP/SFA Status", ["Correct" , "Incorrect" , "NA"])
+    PIP_SFA_Status = st.selectbox("PIP/SFA Status", ["Correct", "Incorrect", "NA"])
 
     VOC = st.text_input("VOC")
 
     AOI = st.text_input("AOI")
     
     call_duration = st.text_input("Enter Call Duration (HH:mm:ss):")
-    
     
     duration_valid = False
     
@@ -161,26 +157,22 @@ elif page == "User Input":
         if not duration_valid:
             st.error("Please enter a valid call duration in HH:mm:ss format.")
 
+    KYC_type = st.selectbox("KYC Type", ["Not Updated", "OKYC", "VKYC", "CKYC"])
 
-    KYC_type = st.selectbox("KYC Type", ["Not Updated" , "OKYC" , "VKYC" , "CKYC"])
+    Disposition_Accuracy = st.selectbox("Disposition Accuracy", ["Correct", "Incorrect", "Not Done"])
 
-    Disposition_Accuracy = st.selectbox("Disposition Accuracy", ["Correct" , "Incorrect" , "Not Done"])
+    DCS_Tagging_L1 = st.text_input("Enter DCS Tagging L1")
 
-    DCS_Tagging_L1  = st.text_input("Enter DCS Tagging L1")
+    DCS_Tagging_L2 = st.text_input("Enter DCS Tagging L2")
 
-    DCS_Tagging_L2  = st.text_input("Enter DCS Tagging L2")
+    DCS_Tagging_L3 = st.text_input("Enter DCS Tagging L3")
 
-    DCS_Tagging_L3  = st.text_input("Enter DCS Tagging L3")
-
-    Actual_Tagging_L1   = st.text_input("Actual Tagging L1")
+    Actual_Tagging_L1 = st.text_input("Actual Tagging L1")
 
     Actual_Tagging_L2 = st.text_input("Actual Tagging L2")
 
     Actual_Tagging_L3 = st.text_input("Actual Tagging L3")
 
-  
-    
-    
     # Button to submit the form
     if st.button("Submit"):
         # Validate all fields
@@ -194,14 +186,6 @@ elif page == "User Input":
         # Timestamp Validation
         elif not timestamp:
             st.error("Please select a timestamp.")
-        
-        # Date of Birth Validation
-        elif not dob:
-            st.error("Please provide your date of birth.")
-        
-        # Center Selection Validation
-        elif not center:
-            st.error("Please select your center.")
         
         # EMP ID Validation
         elif not emp_id.isnumeric():
@@ -223,14 +207,12 @@ elif page == "User Input":
         else:
             # Format fields to display
             timestamp_str = timestamp.strftime('%Y-%m-%d')
-            dob_str = dob.strftime('%Y-%m-%d')
             date_of_audit_str = date_of_audit.strftime('%Y-%m-%d')
             date_of_call_str = date_of_call.strftime('%Y-%m-%d')
             
             st.success(f"Form Submitted Successfully!\n"
                        f"Timestamp: {timestamp_str}\n"
                        f"Email: {email}\n"
-                       f"DOB: {dob_str}\n"
                        f"Date of Audit: {date_of_audit_str}\n"
                        f"Week: {week}\n"
                        f"Audit Category: {audit_category}\n"
@@ -248,7 +230,7 @@ elif page == "User Input":
                        f"Call Time Slot: {call_time_slot}\n"
                        f"Bucket: {bucket}\n"
                        f"Energetic Opening and Closing: {energetic_opening_closing}\n"
-                       f"Motive of the Call: {motive_of_call}\n"
+                       f"Motivating Call: {motive_of_call}\n"
                        f"Probe / Confirm User's Profession: {probe_confirm_user_profession}\n"
                        f"Current Profile Stage / Previous Interaction:{Current_Profile_Stage_Previous_Interaction}\n"
                        f"Current Profile Stage / Previous Interaction:{Probe_If_User_have_any_doc_releated_Profession_Study_Business}\n"
