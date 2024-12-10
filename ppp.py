@@ -31,8 +31,6 @@ elif page == "User Input":
     if email:
         # Regex to check for valid email format
         email_valid = re.match(r"[^@]+@[^@]+\.[^@]+", email) is not None
-        if not email_valid:
-            st.error("Please enter a valid email address.")
     
     # Date of Birth input (DOB)
     LOB = st.selectbox("Select your Center:", ["SE", "SIB", "SIC", "Student"])
@@ -54,12 +52,9 @@ elif page == "User Input":
     
     # EMP ID (Non-numeric validation)
     emp_id = st.text_input("Enter EMP ID:")
-
+    
     # Login ID (Numeric validation)
     login_id = st.text_input("Enter Login ID:")
-    login_id_valid = login_id.isnumeric() if login_id else True
-    if login_id and not login_id_valid:
-        st.error("Login ID should be numeric.")
     
     # Agent Name (No validation)
     agent_name = st.text_input("Enter Agent Name:")
@@ -78,15 +73,9 @@ elif page == "User Input":
     
     # User Register Number (Numeric validation)
     user_register_number = st.text_input("Enter User Register Number:")
-    user_register_number_valid = user_register_number.isnumeric() if user_register_number else True
-    if user_register_number and not user_register_number_valid:
-        st.error("User Register Number should be numeric.")
     
     # Calling Number (Numeric validation)
     calling_number = st.text_input("Enter Calling Number:")
-    calling_number_valid = calling_number.isnumeric() if calling_number else True
-    if calling_number and not calling_number_valid:
-        st.error("Calling Number should be numeric.")
     
     # Date of Call (Date format validation)
     date_of_call = st.date_input("Enter Date of Call:")
@@ -149,14 +138,6 @@ elif page == "User Input":
     
     call_duration = st.text_input("Enter Call Duration (HH:mm:ss):")
     
-    duration_valid = False
-    
-    if call_duration:
-        # Regex to check for "HH:mm:ss" format (24-hour format)
-        duration_valid = re.match(r"^([01]?[0-9]|2[0-3]):([0-5]?[0-9]):([0-5]?[0-9])$", call_duration) is not None
-        if not duration_valid:
-            st.error("Please enter a valid call duration in HH:mm:ss format.")
-
     KYC_type = st.selectbox("KYC Type", ["Not Updated", "OKYC", "VKYC", "CKYC"])
 
     Disposition_Accuracy = st.selectbox("Disposition Accuracy", ["Correct", "Incorrect", "Not Done"])
@@ -175,37 +156,42 @@ elif page == "User Input":
 
     # Button to submit the form
     if st.button("Submit"):
-        # Validate all fields
+        errors = []
         
-        # Email Validation
-        if not email:
-            st.error("Please provide your email address.")
-        elif not email_valid:
-            st.error("Please enter a valid email address.")
+        # Validate each field
+        if not timestamp:
+            errors.append("Please select a timestamp.")
         
-        # Timestamp Validation
-        elif not timestamp:
-            st.error("Please select a timestamp.")
+        if not email or not email_valid:
+            errors.append("Please provide a valid email address.")
         
-        # EMP ID Validation
-        elif not emp_id.isnumeric():
-            st.error("EMP ID should be numeric.")
+        if not emp_id or not emp_id.isnumeric():
+            errors.append("EMP ID should be numeric.")
         
-        # Login ID Validation
-        elif not login_id.isnumeric():
-            st.error("Login ID should be numeric.")
+        if not login_id or not login_id.isnumeric():
+            errors.append("Login ID should be numeric.")
         
-        # User Register Number Validation
-        elif not user_register_number.isnumeric():
-            st.error("User Register Number should be numeric.")
+        if not user_register_number or not user_register_number.isnumeric():
+            errors.append("User Register Number should be numeric.")
         
-        # Calling Number Validation
-        elif not calling_number.isnumeric():
-            st.error("Calling Number should be numeric.")
+        if not calling_number or not calling_number.isnumeric():
+            errors.append("Calling Number should be numeric.")
         
-        # Success Message
+        if not date_of_call:
+            errors.append("Please select a date of call.")
+        
+        if not call_time_slot:
+            errors.append("Please select a call time slot.")
+        
+        if not remarks:
+            errors.append("Please provide remarks.")
+        
+        # If there are errors, display them
+        if errors:
+            for error in errors:
+                st.error(error)
         else:
-            # Format fields to display
+            # If no errors, submit the data
             timestamp_str = timestamp.strftime('%Y-%m-%d')
             date_of_audit_str = date_of_audit.strftime('%Y-%m-%d')
             date_of_call_str = date_of_call.strftime('%Y-%m-%d')
@@ -266,11 +252,4 @@ elif page == "User Input":
 # About Page
 elif page == "About":
     st.header("About the Portal")
-    st.write("""
-    This portal is a simple demonstration of how to build an interactive web app 
-    using Streamlit. It allows you to create various pages and interact with them 
-    via user input.
-    """)
-
-# To run this app, use the following command in the terminal:
-# streamlit run app.py
+    st.write("""This portal is a simple demonstration of how to build an interactive web app using Streamlit. It allows you to create various pages and interact with them via user input.""")
