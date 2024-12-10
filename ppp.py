@@ -35,27 +35,26 @@ elif page == "User Input":
             st.error("Please enter a valid email address.")
     
     # Date of Birth input (DOB)
-    LOB = st.selectbox("Select your Center:", ["SE", "SIB", "SIC", "Student"])
-
+    dob = st.date_input("Enter your Date of Birth:")
     
     # Center selection
-    center = st.selectbox("Select your Center:", ["Bhopal", "Indore", "Vijaywada", "MYS" , "Noida" , "Kolkata" , "Coimbatore" , "Ranchi"])
+    center = st.selectbox("Select your Center:", ["Bhopal", "Indore", "Vijaywada", "MYS", "Noida", "Kolkata", "Coimbatore", "Ranchi"])
     
     # Partner Name (List format)
-    partner_name = st.selectbox("Select Partner Name:", ["Tarus", "TTBS", "MAGNUM" , "ICCS" , "INHOUSE" , "HRH NEXT" , "AYUDA"])
+    partner_name = st.selectbox("Select Partner Name:", ["Tarus", "TTBS", "MAGNUM", "ICCS", "INHOUSE", "HRH NEXT", "AYUDA"])
     
     # Date of Audit (Date format)
     date_of_audit = st.date_input("Enter Date of Audit:")
     
     # Week (List format)
-    week = st.selectbox("Select Week:", ["Week 1", "Week 2", "Week 3", "Week 4" , "Week 5"])
+    week = st.selectbox("Select Week:", ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"])
     
     # Audit Category (List format)
-    audit_category = st.selectbox("Select Audit Category:", ["Floor" , "RCA"])
+    audit_category = st.selectbox("Select Audit Category:", ["Floor", "RCA"])
     
     # EMP ID (Non-numeric validation)
     emp_id = st.text_input("Enter EMP ID:")
-
+    
     # Login ID (Numeric validation)
     login_id = st.text_input("Enter Login ID:")
     login_id_valid = login_id.isnumeric() if login_id else True
@@ -72,8 +71,7 @@ elif page == "User Input":
     audit_name = st.text_input("Enter Audit Name:")
     
     # Auditor Center (List validation)
-    auditor_center = st.selectbox("Select Auditor Center:", ["Indore", "Vijaywada",
-                                                             "Mysore", "Bhopal" , "Noida" , "Kolkata" , "Coimbatore" , "HYD" , "Ranchi"])
+    auditor_center = st.selectbox("Select Auditor Center:", ["Indore", "Vijaywada", "Mysore", "Bhopal", "Noida", "Kolkata", "Coimbatore", "HYD", "Ranchi"])
     
     # Auditor Designation (List validation)
     auditor_designation = st.selectbox("Select Auditor Designation:", ["Designation 1", "Designation 2", "Designation 3"])
@@ -106,85 +104,29 @@ elif page == "User Input":
     motive_of_call = st.selectbox("Motive of the Call?", ["Yes", "No"])
     
     # Probe / Confirm User's Profession (Yes/No validation)
-    probe_confirm_user_profession = st.selectbox("Probe / Confirm User's Profession?", ["Yes", "No" , "NA"])
+    probe_confirm_user_profession = st.selectbox("Probe / Confirm User's Profession?", ["Yes", "No", "NA"])
 
     # Current Profile Stage / Previous Interaction
-    Current_Profile_Stage_Previous_Interaction = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "No" , "FATAL"])
+    current_profile_stage_previous_interaction = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "No", "FATAL"])
 
-    Probe_If_User_have_any_doc_releated_Profession_Study_Business = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "No" , "NA"])
+    # KYC Type
+    kyc_type = st.selectbox("KYC Type", ["Not Updated", "OKYC", "VKYC", "CKYC"])
 
-    Guide_User_with_required_documents_One_by_one = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "Fatal" , "NA"])
-
-    Urgency = st.selectbox("Urgency", ["Yes", "Fatal" , "NA"])
-
-    Objection_Handling = st.selectbox("Objection Handling", ["Yes", "Fatal" , "NA"])
-
-    Explained_user_how_to_take_first_loan  = st.selectbox("Explained user how to take first loan", ["Yes", "Fatal" , "NA"])
-
-    Reconfirmation_Call_back_script   = st.selectbox("Reconfirmation / Call back script ", ["Yes", "Fatal" , "NA"])
-
-    Two_way_communication = st.selectbox("Two way communication", ["Yes" , "NO"])
-
-    Active_listening_and_Dead_Air = st.selectbox("Two way communication", ["Yes" , "NO"])
-
-    Professional_Communication = st.selectbox("Professional Communication", ["Yes" , "NO"])
-
-    Information = st.selectbox("Information", ["Yes" , "NO"])
-
-    Follow_Up = st.selectbox("Follow Up", ["Yes" , "NO"])
-
-    Tagging = st.selectbox("Tagging", ["Yes" ,"NA" , "NO"])
-
-    Fatal = st.selectbox("Fatal", ["Yes" , "NO"])
-
-    Remarks = st.text_input("Remarks:")
-
-    Agent_Feedback_Status  = st.selectbox("Agent Feedback Status", ["Closed" , "Open"])
-
-    Profile_completion_status_prior_to_call = st.selectbox("Profile completion status prior to call ", 
-                                                           ["Blank profile" , "Partially complete" , "Almost complete"])
-
-    PIP_SFA_Status = st.selectbox("PIP/SFA Status", ["Correct" , "Incorrect" , "NA"])
-
-    VOC = st.text_input("VOC")
-
-    AOI = st.text_input("AOI")
-    
+    # Duration (HH:mm:ss format validation)
     call_duration = st.text_input("Enter Call Duration (HH:mm:ss):")
-    
-    
     duration_valid = False
-    
     if call_duration:
-        # Regex to check for "HH:mm:ss" format (24-hour format)
         duration_valid = re.match(r"^([01]?[0-9]|2[0-3]):([0-5]?[0-9]):([0-5]?[0-9])$", call_duration) is not None
         if not duration_valid:
             st.error("Please enter a valid call duration in HH:mm:ss format.")
 
+    # Remarks
+    remarks = st.text_input("Remarks:")
 
-    KYC_type = st.selectbox("KYC Type", ["Not Updated" , "OKYC" , "VKYC" , "CKYC"])
-
-    Disposition_Accuracy = st.selectbox("Disposition Accuracy", ["Correct" , "Incorrect" , "Not Done"])
-
-    DCS_Tagging_L1  = st.text_input("Enter DCS Tagging L1")
-
-    DCS_Tagging_L2  = st.text_input("Enter DCS Tagging L2")
-
-    DCS_Tagging_L3  = st.text_input("Enter DCS Tagging L3")
-
-    Actual_Tagging_L1   = st.text_input("Actual Tagging L1")
-
-    Actual_Tagging_L2 = st.text_input("Actual Tagging L2")
-
-    Actual_Tagging_L3 = st.text_input("Actual Tagging L3")
-
-  
-    
-    
     # Button to submit the form
     if st.button("Submit"):
         # Validate all fields
-        
+
         # Email Validation
         if not email:
             st.error("Please provide your email address.")
@@ -250,35 +192,10 @@ elif page == "User Input":
                        f"Energetic Opening and Closing: {energetic_opening_closing}\n"
                        f"Motive of the Call: {motive_of_call}\n"
                        f"Probe / Confirm User's Profession: {probe_confirm_user_profession}\n"
-                       f"Current Profile Stage / Previous Interaction:{Current_Profile_Stage_Previous_Interaction}\n"
-                       f"Current Profile Stage / Previous Interaction:{Probe_If_User_have_any_doc_releated_Profession_Study_Business}\n"
-                       f"Guide User with Required Documnets One by One:{Guide_User_with_required_documents_One_by_one}\n"
-                       f"Urgency:{Urgency}\n"
-                       f"Objection Handling:{Objection_Handling}\n"
-                       f"Explained user how to take first loan:{Explained_user_how_to_take_first_loan}\n"
-                       f"Reconfirmation Call back script:{Reconfirmation_Call_back_script}\n"
-                       f"Two way communication:{Two_way_communication}\n"
-                       f"Active listening and Dead Air:{Active_listening_and_Dead_Air}\n"
-                       f"Professional Communication:{Professional_Communication}\n"
-                       f"Information:{Information}\n"
-                       f"Follow_Up:{Follow_Up}\n"
-                       f"Tagging:{Tagging}\n"
-                       f"Fatal:{Fatal}\n"
-                       f"Remarks:{Remarks}\n"
-                       f"Agent Feedback Status:{Agent_Feedback_Status}\n"
-                       f"Profile completion status prior to call:{Profile_completion_status_prior_to_call}\n"
-                       f"PIP/SFA_Status:{PIP_SFA_Status}\n"
-                       f"VOC:{VOC}\n"
-                       f"AOI:{AOI}\n"
-                       f"call duration:{call_duration}\n"
-                       f"KYC type:{KYC_type}\n"
-                       f"Disposition Accuracy:{Disposition_Accuracy}\n"
-                       f"DCS Tagging L1:{DCS_Tagging_L1}\n"
-                       f"DCS Tagging L2:{DCS_Tagging_L2}\n"
-                       f"DCS Tagging L2:{DCS_Tagging_L2}\n"
-                       f"Actual Tagging L1:{Actual_Tagging_L1}\n"
-                       f"Actual Tagging L2:{Actual_Tagging_L2}\n"
-                       f"Actual Tagging L3:{Actual_Tagging_L3}\n"
+                       f"Current Profile Stage / Previous Interaction: {current_profile_stage_previous_interaction}\n"
+                       f"KYC Type: {kyc_type}\n"
+                       f"Call Duration: {call_duration}\n"
+                       f"Remarks: {remarks}\n"
             )
 
 # About Page
