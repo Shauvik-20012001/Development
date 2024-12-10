@@ -69,7 +69,7 @@ elif page == "User Input":
     auditor_center = st.selectbox("Select Auditor Center:", ["Indore", "Vijaywada", "Mysore", "Bhopal", "Noida", "Kolkata", "Coimbatore", "HYD", "Ranchi"])
     
     # Auditor Designation (List validation)
-    auditor_designation = st.selectbox("Select Auditor Designation:", ["Designation 1", "Designation 2", "Designation 3"])
+    auditor_designation = st.selectbox("Select Auditor Designation:", ["TL", "Trainer"])
     
     # User Register Number (Numeric validation)
     user_register_number = st.text_input("Enter User Register Number:")
