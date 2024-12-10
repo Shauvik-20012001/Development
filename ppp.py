@@ -34,30 +34,28 @@ elif page == "User Input":
         if not email_valid:
             st.error("Please enter a valid email address.")
     
-    # LOB (Line of Business) selection
-    lob = st.selectbox("Select your Line of Business (LOB):", ["SE", "SIB", "SIC", "Student"])
+    # Date of Birth input (DOB)
+    LOB = st.selectbox("Select your Center:", ["SE", "SIB", "SIC", "Student"])
+
     
     # Center selection
-    center = st.selectbox("Select your Center:", ["Bhopal", "", "Center 3", "Center 4"])
+    center = st.selectbox("Select your Center:", ["Bhopal", "Indore", "Vijaywada", "MYS" , "Noida" , "Kolkata" , "Coimbatore" , "Ranchi"])
     
     # Partner Name (List format)
-    partner_name = st.selectbox("Select Partner Name:", ["Partner A", "Partner B", "Partner C"])
+    partner_name = st.selectbox("Select Partner Name:", ["Tarus", "TTBS", "MAGNUM" , "ICCS" , "INHOUSE" , "HRH NEXT" , "AYUDA"])
     
     # Date of Audit (Date format)
     date_of_audit = st.date_input("Enter Date of Audit:")
     
     # Week (List format)
-    week = st.selectbox("Select Week:", ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"])
+    week = st.selectbox("Select Week:", ["Week 1", "Week 2", "Week 3", "Week 4" , "Week 5"])
     
     # Audit Category (List format)
-    audit_category = st.selectbox("Select Audit Category:", ["Category 1", "Category 2", "Category 3"])
+    audit_category = st.selectbox("Select Audit Category:", ["Floor" , "RCA"])
     
     # EMP ID (Non-numeric validation)
     emp_id = st.text_input("Enter EMP ID:")
-    emp_id_valid = emp_id.isnumeric() if emp_id else True
-    if emp_id and not emp_id_valid:
-        st.error("EMP ID should be numeric.")
-    
+
     # Login ID (Numeric validation)
     login_id = st.text_input("Enter Login ID:")
     login_id_valid = login_id.isnumeric() if login_id else True
@@ -74,7 +72,8 @@ elif page == "User Input":
     audit_name = st.text_input("Enter Audit Name:")
     
     # Auditor Center (List validation)
-    auditor_center = st.selectbox("Select Auditor Center:", ["Center 1", "Center 2", "Center 3", "Center 4"])
+    auditor_center = st.selectbox("Select Auditor Center:", ["Indore", "Vijaywada",
+                                                             "Mysore", "Bhopal" , "Noida" , "Kolkata" , "Coimbatore" , "HYD" , "Ranchi"])
     
     # Auditor Designation (List validation)
     auditor_designation = st.selectbox("Select Auditor Designation:", ["Designation 1", "Designation 2", "Designation 3"])
@@ -123,9 +122,9 @@ elif page == "User Input":
         elif not timestamp:
             st.error("Please select a timestamp.")
         
-        # LOB Selection Validation
-        elif not lob:
-            st.error("Please select a Line of Business.")
+        # Date of Birth Validation
+        elif not dob:
+            st.error("Please provide your date of birth.")
         
         # Center Selection Validation
         elif not center:
@@ -151,13 +150,14 @@ elif page == "User Input":
         else:
             # Format fields to display
             timestamp_str = timestamp.strftime('%Y-%m-%d')
+            dob_str = dob.strftime('%Y-%m-%d')
             date_of_audit_str = date_of_audit.strftime('%Y-%m-%d')
             date_of_call_str = date_of_call.strftime('%Y-%m-%d')
             
             st.success(f"Form Submitted Successfully!\n"
                        f"Timestamp: {timestamp_str}\n"
                        f"Email: {email}\n"
-                       f"LOB: {lob}\n"
+                       f"DOB: {dob_str}\n"
                        f"Date of Audit: {date_of_audit_str}\n"
                        f"Week: {week}\n"
                        f"Audit Category: {audit_category}\n"
