@@ -106,7 +106,80 @@ elif page == "User Input":
     motive_of_call = st.selectbox("Motive of the Call?", ["Yes", "No"])
     
     # Probe / Confirm User's Profession (Yes/No validation)
-    probe_confirm_user_profession = st.selectbox("Probe / Confirm User's Profession?", ["Yes", "No"])
+    probe_confirm_user_profession = st.selectbox("Probe / Confirm User's Profession?", ["Yes", "No" , "NA"])
+
+    # Current Profile Stage / Previous Interaction
+    Current_Profile_Stage_Previous_Interaction = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "No" , "FATAL"])
+
+    Probe_If_User_have_any_doc_releated_Profession_Study_Business = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "No" , "NA"])
+
+    Guide_User_with_required_documents_One_by_one = st.selectbox("Current Profile Stage / Previous Interaction", ["Yes", "Fatal" , "NA"])
+
+    Urgency = st.selectbox("Urgency", ["Yes", "Fatal" , "NA"])
+
+    Objection_Handling = st.selectbox("Objection Handling", ["Yes", "Fatal" , "NA"])
+
+    Explained_user_how_to_take_first_loan  = st.selectbox("Explained user how to take first loan", ["Yes", "Fatal" , "NA"])
+
+    Reconfirmation_Call_back_script   = st.selectbox("Reconfirmation / Call back script ", ["Yes", "Fatal" , "NA"])
+
+    Two_way_communication = st.selectbox("Two way communication", ["Yes" , "NO"])
+
+    Active_listening_and_Dead_Air = st.selectbox("Two way communication", ["Yes" , "NO"])
+
+    Professional_Communication = st.selectbox("Professional Communication", ["Yes" , "NO"])
+
+    Information = st.selectbox("Information", ["Yes" , "NO"])
+
+    Follow_Up = st.selectbox("Follow Up", ["Yes" , "NO"])
+
+    Tagging = st.selectbox("Tagging", ["Yes" ,"NA" , "NO"])
+
+    Fatal = st.selectbox("Fatal", ["Yes" , "NO"])
+
+    Remarks = st.text_input("Remarks:")
+
+    Agent_Feedback_Status  = st.selectbox("Agent Feedback Status", ["Closed" , "Open"])
+
+    Profile_completion_status_prior_to_call = st.selectbox("Profile completion status prior to call ", 
+                                                           ["Blank profile" , "Partially complete" , "Almost complete"])
+
+    PIP_SFA_Status = st.selectbox("PIP/SFA Status", ["Correct" , "Incorrect" , "NA"])
+
+    VOC = st.text_input("VOC")
+
+    AOI = st.text_input("AOI")
+    
+    call_duration = st.text_input("Enter Call Duration (HH:mm:ss):")
+    
+    
+    duration_valid = False
+    
+    if call_duration:
+        # Regex to check for "HH:mm:ss" format (24-hour format)
+        duration_valid = re.match(r"^([01]?[0-9]|2[0-3]):([0-5]?[0-9]):([0-5]?[0-9])$", call_duration) is not None
+        if not duration_valid:
+            st.error("Please enter a valid call duration in HH:mm:ss format.")
+
+
+    KYC_type = st.selectbox("KYC Type", ["Not Updated" , "OKYC" , "VKYC" , "CKYC"])
+
+    Disposition_Accuracy = st.selectbox("Disposition Accuracy", ["Correct" , "Incorrect" , "Not Done"])
+
+    DCS_Tagging_L1  = st.text_input("Enter DCS Tagging L1")
+
+    DCS_Tagging_L2  = st.text_input("Enter DCS Tagging L2")
+
+    DCS_Tagging_L3  = st.text_input("Enter DCS Tagging L3")
+
+    Actual_Tagging_L1   = st.text_input("Actual Tagging L1")
+
+    Actual_Tagging_L2 = st.text_input("Actual Tagging L2")
+
+    Actual_Tagging_L3 = st.text_input("Actual Tagging L3")
+
+  
+    
     
     # Button to submit the form
     if st.button("Submit"):
@@ -176,7 +249,37 @@ elif page == "User Input":
                        f"Bucket: {bucket}\n"
                        f"Energetic Opening and Closing: {energetic_opening_closing}\n"
                        f"Motive of the Call: {motive_of_call}\n"
-                       f"Probe / Confirm User's Profession: {probe_confirm_user_profession}")
+                       f"Probe / Confirm User's Profession: {probe_confirm_user_profession}\n"
+                       f"Current Profile Stage / Previous Interaction:{Current_Profile_Stage_Previous_Interaction}\n"
+                       f"Current Profile Stage / Previous Interaction:{Probe_If_User_have_any_doc_releated_Profession_Study_Business}\n"
+                       f"Guide User with Required Documnets One by One:{Guide_User_with_required_documents_One_by_one}\n"
+                       f"Urgency:{Urgency}\n"
+                       f"Objection Handling:{Objection_Handling}\n"
+                       f"Explained user how to take first loan:{Explained_user_how_to_take_first_loan}\n"
+                       f"Reconfirmation Call back script:{Reconfirmation_Call_back_script}\n"
+                       f"Two way communication:{Two_way_communication}\n"
+                       f"Active listening and Dead Air:{Active_listening_and_Dead_Air}\n"
+                       f"Professional Communication:{Professional_Communication}\n"
+                       f"Information:{Information}\n"
+                       f"Follow_Up:{Follow_Up}\n"
+                       f"Tagging:{Tagging}\n"
+                       f"Fatal:{Fatal}\n"
+                       f"Remarks:{Remarks}\n"
+                       f"Agent Feedback Status:{Agent_Feedback_Status}\n"
+                       f"Profile completion status prior to call:{Profile_completion_status_prior_to_call}\n"
+                       f"PIP/SFA_Status:{PIP_SFA_Status}\n"
+                       f"VOC:{VOC}\n"
+                       f"AOI:{AOI}\n"
+                       f"call duration:{call_duration}\n"
+                       f"KYC type:{KYC_type}\n"
+                       f"Disposition Accuracy:{Disposition_Accuracy}\n"
+                       f"DCS Tagging L1:{DCS_Tagging_L1}\n"
+                       f"DCS Tagging L2:{DCS_Tagging_L2}\n"
+                       f"DCS Tagging L2:{DCS_Tagging_L2}\n"
+                       f"Actual Tagging L1:{Actual_Tagging_L1}\n"
+                       f"Actual Tagging L2:{Actual_Tagging_L2}\n"
+                       f"Actual Tagging L3:{Actual_Tagging_L3}\n"
+            )
 
 # About Page
 elif page == "About":
