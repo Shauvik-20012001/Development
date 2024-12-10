@@ -37,7 +37,7 @@ elif page == "User Input":
     dob = st.date_input("Enter your date of birth:")
     
     # Center selection
-    center = st.selectbox("Select your Center:", ["Center 1", "Center 2", "Center 3", "Center 4"])
+    center = st.selectbox("Select your Center:", ["Bhopal", "Indore", "Vijaywada", "Mysore" , "Kolkata" , "Coimbatore" , "Ranchi" ])
     
     # Button to submit the form
     if st.button("Submit"):
