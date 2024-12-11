@@ -15,10 +15,8 @@ def show_login_page():
     Employee_type = st.selectbox("Select Employee Type", ["SLT", "DCS"])
 
     # Conditional Process dropdown based on Employee Type and Center
-    if Employee_type == "DCS" and center == "Kolkata":
-        Process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
-    else:
-        Process = st.selectbox("Select Process", ["Collection", "Non_Collection"])
+    Process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
+
 
     # Login button
     if st.button("Login"):
