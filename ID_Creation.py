@@ -25,7 +25,7 @@ def show_login_page():
             st.session_state.center = center  # Store selected center in session state
             st.session_state.employee_type = Employee_type  # Store selected employee type
             st.session_state.process = Process  # Store selected process in session state
-            st.session_state.form_displayed = False  # Flag to track whether form is displayed
+            st.session_state.form_displayed = True  # Flag to track whether form is displayed
         else:
             st.error("Invalid username or password")
 
