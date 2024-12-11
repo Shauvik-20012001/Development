@@ -13,7 +13,8 @@ def show_login_page():
         if username == "admin" and password == "admin":  # Simple login check
             st.session_state.logged_in = True
             st.session_state.username = username
-            st.experimental_rerun()  # Re-run to go to the next page after successful login
+            st.session_state.form_displayed = False  # Flag to track whether form is displayed
+            st.experimental_rerun()  # Re-run to show the form after successful login
         else:
             st.error("Invalid username or password")
 
@@ -44,9 +45,11 @@ def show_form():
 
 # Main function to control the flow of the app
 def main():
+    # Initialize session state if not already initialized
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
-    
+        st.session_state.form_displayed = False  # Ensure form is not displayed by default
+
     if not st.session_state.logged_in:
         show_login_page()  # Show login page if not logged in
     else:
