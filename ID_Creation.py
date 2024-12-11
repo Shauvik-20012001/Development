@@ -11,9 +11,9 @@ def show_login_page():
     # Login button
     if st.button("Login"):
         if username == "admin" and password == "admin":  # Simple login check
-            st.session_state.logged_in = True  # Mark logged in state
-            st.session_state.username = username  # Save username in session state
-            st.session_state.page = "center_selection"  # Redirect to center selection page
+            st.session_state.logged_in = True
+            st.session_state.username = username
+            st.experimental_rerun()
         else:
             st.error("Invalid username or password")
 
@@ -33,19 +33,33 @@ def show_center_page():
     # Submit button
     if st.button("Submit"):
         st.write(f"Center: {center}, Type: {center_type}")
-        # Here, you can add further logic to handle form submission
+        
+        # Based on the center, display different input fields
+        if center == 'Kolkata':
+            st.text_input("EMP ID")
+            st.text_input("Agent Name")
+            st.text_input("Contact No.")
+            st.text_input("Official E Mail Id")
+            st.text_input("Process Name")
+            st.text_input("Trainer Name")
+            st.text_input("Batch No.")
+        else:
+            st.text_input("EMP ID")
+            st.text_input("Candidate Name")
+            st.text_input("Mobile No")
+            st.text_input("Mail ID")
+            st.text_input("Process Name")
+            st.text_input("Batch No.")
+            st.text_input("Trainer")
 
 # Main function to control the flow of the app
 def main():
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
-    if "page" not in st.session_state:
-        st.session_state.page = "login"  # Default to the login page
     
-    # Check the page state and show the corresponding page
-    if st.session_state.page == "login":
+    if not st.session_state.logged_in:
         show_login_page()
-    elif st.session_state.page == "center_selection":
+    else:
         show_center_page()
 
 if __name__ == "__main__":
