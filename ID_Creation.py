@@ -15,14 +15,13 @@ def show_login_page():
             st.session_state.username = username
             st.session_state.center = None  # Reset center and type on new login
             st.session_state.center_type = None
-            st.session_state.form_displayed = False  # Ensure form is not displayed yet
             st.experimental_rerun()
         else:
             st.error("Invalid username or password")
 
-# Function to display center selection page and form together
-def show_center_and_form_page():
-    st.title("Select Center and Enter Details")
+# Function to display center selection and center type options
+def show_center_selection_page():
+    st.title("Select Center and Type")
 
     # Dropdown for selecting the center
     center = st.selectbox("Select Center", ["Kolkata", "Indore", "Mysore", "Bhopal", "Ranchi"])
@@ -38,42 +37,18 @@ def show_center_and_form_page():
 
     # Submit button for center and type selection
     if st.button("Submit"):
-        st.session_state.form_displayed = True  # Flag to indicate that the form should be displayed
-        st.experimental_rerun()
-
-    # Display the form fields based on the selected center and type
-    if st.session_state.form_displayed:
         st.write(f"Center: {center}, Type: {center_type}")
-        
-        if center == 'Kolkata':
-            st.text_input("EMP ID")
-            st.text_input("Agent Name")
-            st.text_input("Contact No.")
-            st.text_input("Official E Mail Id")
-            st.text_input("Process Name")
-            st.text_input("Trainer Name")
-            st.text_input("Batch No.")
-        else:
-            st.text_input("EMP ID")
-            st.text_input("Candidate Name")
-            st.text_input("Mobile No")
-            st.text_input("Mail ID")
-            st.text_input("Process Name")
-            st.text_input("Batch No.")
-            st.text_input("Trainer")
+        # You can add logic here for any further actions you wish to perform based on the selection
 
 # Main function to control the flow of the app
 def main():
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
-        st.session_state.form_displayed = False
-        st.session_state.center = None
-        st.session_state.center_type = None
     
     if not st.session_state.logged_in:
         show_login_page()
     else:
-        show_center_and_form_page()
+        show_center_selection_page()
 
 if __name__ == "__main__":
     main()
