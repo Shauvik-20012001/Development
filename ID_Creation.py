@@ -20,10 +20,10 @@ def show_login_page():
         else:
             st.error("Invalid username or password")
 
-# Function to display center selection page
-def show_center_page():
-    st.title("Select Center")
-    
+# Function to display center selection page and form together
+def show_center_and_form_page():
+    st.title("Select Center and Enter Details")
+
     # Dropdown for selecting the center
     center = st.selectbox("Select Center", ["Kolkata", "Indore", "Mysore", "Bhopal", "Ranchi"])
     st.session_state.center = center  # Store selected center in session state
@@ -35,34 +35,32 @@ def show_center_page():
         center_type = st.radio("Select Type", ["Collection", "Non-Collection"])
     
     st.session_state.center_type = center_type  # Store selected center type in session state
-    
-    # Submit button
+
+    # Submit button for center and type selection
     if st.button("Submit"):
         st.session_state.form_displayed = True  # Flag to indicate that the form should be displayed
         st.experimental_rerun()
 
-# Function to display the relevant form fields based on center and type
-def show_form():
-    center = st.session_state.center
-    center_type = st.session_state.center_type
-    
-    # Based on the center, display different input fields
-    if center == 'Kolkata':
-        st.text_input("EMP ID")
-        st.text_input("Agent Name")
-        st.text_input("Contact No.")
-        st.text_input("Official E Mail Id")
-        st.text_input("Process Name")
-        st.text_input("Trainer Name")
-        st.text_input("Batch No.")
-    else:
-        st.text_input("EMP ID")
-        st.text_input("Candidate Name")
-        st.text_input("Mobile No")
-        st.text_input("Mail ID")
-        st.text_input("Process Name")
-        st.text_input("Batch No.")
-        st.text_input("Trainer")
+    # Display the form fields based on the selected center and type
+    if st.session_state.form_displayed:
+        st.write(f"Center: {center}, Type: {center_type}")
+        
+        if center == 'Kolkata':
+            st.text_input("EMP ID")
+            st.text_input("Agent Name")
+            st.text_input("Contact No.")
+            st.text_input("Official E Mail Id")
+            st.text_input("Process Name")
+            st.text_input("Trainer Name")
+            st.text_input("Batch No.")
+        else:
+            st.text_input("EMP ID")
+            st.text_input("Candidate Name")
+            st.text_input("Mobile No")
+            st.text_input("Mail ID")
+            st.text_input("Process Name")
+            st.text_input("Batch No.")
+            st.text_input("Trainer")
 
 # Main function to control the flow of the app
 def main():
@@ -74,10 +72,8 @@ def main():
     
     if not st.session_state.logged_in:
         show_login_page()
-    elif not st.session_state.form_displayed:
-        show_center_page()
     else:
-        show_form()
+        show_center_and_form_page()
 
 if __name__ == "__main__":
     main()
