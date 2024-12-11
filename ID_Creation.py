@@ -14,7 +14,7 @@ def show_login_page():
             st.session_state.logged_in = True
             st.session_state.username = username
             st.session_state.form_displayed = False  # Flag to track whether form is displayed
-            st.experimental_rerun()  # Re-run to show the form after successful login
+            # No need for st.experimental_rerun() here
         else:
             st.error("Invalid username or password")
 
