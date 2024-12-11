@@ -1,6 +1,6 @@
 import streamlit as st
 
-# Function to display login page
+# Function to display login page with "Center" dropdown
 def show_login_page():
     st.title("Login Page")
     
@@ -8,13 +8,16 @@ def show_login_page():
     username = st.text_input("Username")
     password = st.text_input("Password", type='password')
     
+    # Center dropdown for selection
+    center = st.selectbox("Select Center", ["Kolkata", "Indore", "Mysore", "Bhopal", "Ranchi"])
+    
     # Login button
     if st.button("Login"):
         if username == "admin" and password == "admin":  # Simple login check
             st.session_state.logged_in = True
             st.session_state.username = username
+            st.session_state.center = center  # Store selected center in session state
             st.session_state.form_displayed = False  # Flag to track whether form is displayed
-            # No need for st.experimental_rerun() here
         else:
             st.error("Invalid username or password")
 
