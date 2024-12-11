@@ -14,8 +14,11 @@ def show_login_page():
     # Employee Type dropdown
     Employee_type = st.selectbox("Select Employee Type", ["SLT", "DCS"])
 
-    Process = st.selectbox("Select Process", ["Collection", "Non_Collection" ,  "Customer Support"])
-
+    # Conditional Process dropdown based on Employee Type and Center
+    if Employee_type == "DCS" and center == "Kolkata":
+        Process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
+    else:
+        Process = st.selectbox("Select Process", ["Collection", "Non_Collection"])
 
     # Login button
     if st.button("Login"):
@@ -44,15 +47,20 @@ def show_form():
 
     # Submit button for the form
     if st.button("Submit"):
-        st.write("Form submitted successfully!")
-        # You can process and save form data here
-        st.write(f"EMP ID: {emp_id}")
-        st.write(f"Candidate Name: {candidate_name}")
-        st.write(f"Mobile No.: {mobile_no}")
-        st.write(f"Mail ID: {mail_id}")
-        st.write(f"Process Name: {process_name}")
-        st.write(f"Batch No.: {batch_no}")
-        st.write(f"Trainer: {trainer}")
+        # Check if all fields are filled
+        if not emp_id or not candidate_name or not mobile_no or not mail_id or not process_name or not batch_no or not trainer:
+            st.error("Please fill in all the fields.")
+        else:
+            # If all fields are filled, proceed with the submission
+            st.write("Form submitted successfully!")
+            # You can process and save form data here
+            st.write(f"EMP ID: {emp_id}")
+            st.write(f"Candidate Name: {candidate_name}")
+            st.write(f"Mobile No.: {mobile_no}")
+            st.write(f"Mail ID: {mail_id}")
+            st.write(f"Process Name: {process_name}")
+            st.write(f"Batch No.: {batch_no}")
+            st.write(f"Trainer: {trainer}")
 
 # Main function to control the flow of the app
 def main():
