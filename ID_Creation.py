@@ -10,6 +10,8 @@ def show_login_page():
     
     # Center dropdown for selection
     center = st.selectbox("Select Center", ["Kolkata", "Indore", "Mysore", "Bhopal", "Ranchi"])
+    Employee_type = st.selectbox("Select Employee Type", ["SLT" , "DCS"])
+    
     
     # Login button
     if st.button("Login"):
@@ -17,6 +19,8 @@ def show_login_page():
             st.session_state.logged_in = True
             st.session_state.username = username
             st.session_state.center = center  # Store selected center in session state
+            st.session_state.form_displayed = False  # Flag to track whether form is displayed
+            st.session_state.center = Employee_type  # Store selected center in session state
             st.session_state.form_displayed = False  # Flag to track whether form is displayed
         else:
             st.error("Invalid username or password")
