@@ -11,9 +11,9 @@ def show_login_page():
     # Login button
     if st.button("Login"):
         if username == "admin" and password == "admin":  # Simple login check
-            st.session_state.logged_in = True
-            st.session_state.username = username
-            st.experimental_rerun()
+            st.session_state.logged_in = True  # Mark logged in state
+            st.session_state.username = username  # Save username in session state
+            st.session_state.page = "center_selection"  # Redirect to center selection page
         else:
             st.error("Invalid username or password")
 
@@ -39,10 +39,13 @@ def show_center_page():
 def main():
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
+    if "page" not in st.session_state:
+        st.session_state.page = "login"  # Default to the login page
     
-    if not st.session_state.logged_in:
+    # Check the page state and show the corresponding page
+    if st.session_state.page == "login":
         show_login_page()
-    else:
+    elif st.session_state.page == "center_selection":
         show_center_page()
 
 if __name__ == "__main__":
