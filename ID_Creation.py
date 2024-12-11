@@ -11,44 +11,43 @@ def show_login_page():
     # Login button
     if st.button("Login"):
         if username == "admin" and password == "admin":  # Simple login check
-            st.session_state.logged_in = True
-            st.session_state.username = username
-            st.session_state.center = None  # Reset center and type on new login
-            st.session_state.center_type = None
-            st.experimental_rerun()
+            st.session_state.logged_in = True  # Mark logged-in state
+            st.session_state.username = username  # Save username in session state
+            st.session_state.page = "center_selection"  # Redirect to center selection page
         else:
             st.error("Invalid username or password")
 
-# Function to display center selection and center type options
-def show_center_selection_page():
-    st.title("Select Center and Type")
+# Function to display center selection page
+def show_center_page():
+    st.title("Select Center")
 
     # Dropdown for selecting the center
     center = st.selectbox("Select Center", ["Kolkata", "Indore", "Mysore", "Bhopal", "Ranchi"])
-    st.session_state.center = center  # Store selected center in session state
-    
+
     # Show different radio buttons based on selected center
     if center == 'Kolkata':
         center_type = st.radio("Select Type", ["Collection", "Non-Collection", "Customer Support"])
     else:
         center_type = st.radio("Select Type", ["Collection", "Non-Collection"])
     
-    st.session_state.center_type = center_type  # Store selected center type in session state
-
-    # Submit button for center and type selection
+    # Submit button
     if st.button("Submit"):
         st.write(f"Center: {center}, Type: {center_type}")
-        # You can add logic here for any further actions you wish to perform based on the selection
+        # Here, you can add further logic to handle form submission
 
 # Main function to control the flow of the app
 def main():
+    # Initialize session states if not already set
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
+    if "page" not in st.session_state:
+        st.session_state.page = "login"  # Default to the login page
     
-    if not st.session_state.logged_in:
+    # Check the page state and show the corresponding page
+    if st.session_state.page == "login":
         show_login_page()
-    else:
-        show_center_selection_page()
+    elif st.session_state.page == "center_selection":
+        show_center_page()
 
 if __name__ == "__main__":
     main()
