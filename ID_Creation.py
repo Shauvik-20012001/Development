@@ -65,10 +65,8 @@ def show_form():
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
-                # Clear inputs
-                st.experimental_rerun()
-            else:
-                st.error("Please fill in all fields before adding a row.")
+                # Clear inputs manually
+                emp_id = agent_name = contact_no = official_email = department = trainer_name = batch_no = ""
 
     else:
         # Form for other centers
@@ -95,10 +93,8 @@ def show_form():
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
-                # Clear inputs
-                st.experimental_rerun()
-            else:
-                st.error("Please fill in all fields before adding a row.")
+                # Clear inputs manually
+                emp_id = candidate_name = mobile_no = mail_id = process_name = batch_no = trainer = ""
 
     # Displaying the table of all added rows
     if st.session_state.data:
@@ -118,7 +114,7 @@ def show_form():
             if 1 <= row_to_delete <= len(df):
                 st.session_state.data.pop(row_to_delete - 1)
                 st.success(f"Row {row_to_delete} deleted successfully!")
-                st.experimental_rerun()
+                # Clear the input form or refresh as needed
             else:
                 st.error("Invalid row number")
 
