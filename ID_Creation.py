@@ -118,8 +118,7 @@ def show_form():
             if 1 <= row_to_delete <= len(df):
                 st.session_state.data.pop(row_to_delete - 1)
                 st.success(f"Row {row_to_delete} deleted successfully!")
-                # Re-render the table after deleting
-                st.experimental_rerun()  # Force a rerun to refresh the table
+                # Automatically refresh the table by updating the session state
             else:
                 st.error("Invalid row number")
 
