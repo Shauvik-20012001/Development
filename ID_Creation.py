@@ -35,22 +35,33 @@ def show_form():
 
     # Check if the selected center is Kolkata
     if st.session_state.center == "Kolkata":
-        # Display only Name and EMP ID fields for Kolkata
+        # Display fields for Kolkata
         emp_id = st.text_input("EMP ID")
-        candidate_name = st.text_input("Candidate Name")
+        agent_name = st.text_input("Agent Name")
+        contact_no = st.text_input("Contact No:")
+        official_email = st.text_input("Official Email_ID:")
+        department = st.text_input("Department Name:")
+        trainer_name = st.text_input("Trainer Name:")
+        batch_no = st.text_input("Batch No:")
 
         # Submit button for the form
         if st.button("Submit"):
-            # Check if both fields are filled
-            if not emp_id or not candidate_name:
-                st.error("Please fill in both fields.")
+            # Check if any field is left empty
+            if not emp_id or not agent_name or not contact_no or not official_email or not department or not trainer_name or not batch_no:
+                st.error("Please fill in all the fields.")
             else:
-                # If both fields are filled, proceed with the submission
+                # If all fields are filled, proceed with the submission
                 st.write("Form submitted successfully!")
                 st.write(f"EMP ID: {emp_id}")
-                st.write(f"Candidate Name: {candidate_name}")
+                st.write(f"Agent Name: {agent_name}")
+                st.write(f"Contact No: {contact_no}")
+                st.write(f"Official Email_ID: {official_email}")
+                st.write(f"Department: {department}")
+                st.write(f"Trainer Name: {trainer_name}")
+                st.write(f"Batch No: {batch_no}")
+
     else:
-        # Display the full form for other centers
+        # Full form for other centers (same as before)
         emp_id = st.text_input("EMP ID")
         candidate_name = st.text_input("Candidate Name")
         mobile_no = st.text_input("Mobile No.")
