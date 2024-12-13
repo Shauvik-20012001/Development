@@ -12,10 +12,10 @@ def show_login_page():
     center = st.selectbox("Select Center", ["Kolkata", "Indore", "Mysore", "Bhopal", "Ranchi"])
     
     # Employee Type dropdown
-    Employee_type = st.selectbox("Select Employee Type", ["SLT", "DCS"])
+    employee_type = st.selectbox("Select Employee Type", ["SLT", "DCS"])
 
     # Conditional Process dropdown based on Employee Type and Center
-    Process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
+    process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
 
     # Login button
     if st.button("Login"):
@@ -23,9 +23,11 @@ def show_login_page():
             st.session_state.logged_in = True
             st.session_state.username = username
             st.session_state.center = center  # Store selected center in session state
-            st.session_state.employee_type = Employee_type  # Store selected employee type
-            st.session_state.process = Process  # Store selected process in session state
+            st.session_state.employee_type = employee_type  # Store selected employee type
+            st.session_state.process = process  # Store selected process in session state
             st.session_state.form_displayed = True  # Flag to track whether form is displayed
+            if "rows" not in st.session_state:
+                st.session_state.rows = []  # Initialize rows if not already initialized
         else:
             st.error("Invalid username or password")
 
@@ -33,41 +35,75 @@ def show_login_page():
 def show_form():
     st.title("Fill the Form")
 
-
-
     # Check if the selected center is Kolkata
     if st.session_state.center == "Kolkata":
-        # Display only Name and EMP ID fields for Kolkata
-        emp_id = st.text_input("EMP ID")
-        agent_name = st.text_input("Agent Name")
-        contact_no = st.text_input("Contact No:")
-        official_email = st.text_input("Official Email_ID:")
-        department = st.text_input("Department Name:")
-        trainer_name = st.text_input("Trainer Name:")
-        batch_no = st.text_input("Batch No :")
+        # Display the dynamic rows for Kolkata
+        if "rows" not in st.session_state:
+            st.session_state.rows = []
 
+        # Function to add a row of input fields
+        def add_row():
+            st.session_state.rows.append({
+                "emp_id": "",
+                "agent_name": "",
+                "contact_no": "",
+                "official_email": "",
+                "department": "",
+                "trainer_name": "",
+                "batch_no": "",
+            })
 
+        # Function to remove the last row
+        def remove_row():
+            if st.session_state.rows:
+                st.session_state.rows.pop()
 
+        # Buttons to add or remove rows
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("Add Row"):
+                add_row()
+        with col2:
+            if st.button("Delete Row"):
+                remove_row()
+
+        # Display all added rows
+        for i, row in enumerate(st.session_state.rows):
+            with st.expander(f"Row {i + 1}"):
+                row["emp_id"] = st.text_input(f"EMP ID {i + 1}", value=row["emp_id"], key=f"emp_id_{i}")
+                row["agent_name"] = st.text_input(f"Agent Name {i + 1}", value=row["agent_name"], key=f"agent_name_{i}")
+                row["contact_no"] = st.text_input(f"Contact No. {i + 1}", value=row["contact_no"], key=f"contact_no_{i}")
+                row["official_email"] = st.text_input(f"Official Email ID {i + 1}", value=row["official_email"], key=f"official_email_{i}")
+                row["department"] = st.text_input(f"Department Name {i + 1}", value=row["department"], key=f"department_{i}")
+                row["trainer_name"] = st.text_input(f"Trainer Name {i + 1}", value=row["trainer_name"], key=f"trainer_name_{i}")
+                row["batch_no"] = st.text_input(f"Batch No. {i + 1}", value=row["batch_no"], key=f"batch_no_{i}")
 
         # Submit button for the form
         if st.button("Submit"):
-            # Check if both fields are filled
-            if not emp_id or not agent_name or not contact_no or not official_email or not department or not trainer_name or not batch_no:
-                st.error("Please fill in both fields.")
-            else:
-                # If both fields are filled, proceed with the submission
-                st.write("Form submitted successfully!")
-                st.write(f"EMP ID: {emp_id}")
-                st.write(f"Agent Name: {agent_name}")
-                st.write(f"Contact No: {contact_no}")
-                st.write(f"Official Email: {official_email}")
-                st.write(f"Department: {department}")
-                st.write(f"Trainer Name: {trainer_name}")
-                st.write(f"Batch No: {batch_no}")
+            # Check if all fields are filled for every row
+            all_filled = True
+            for row in st.session_state.rows:
+                if not all(row.values()):
+                    all_filled = False
+                    break
 
+            if not all_filled:
+                st.error("Please fill in all the fields.")
+            else:
+                # If all fields are filled, proceed with the submission
+                st.write("Form submitted successfully!")
+                for i, row in enumerate(st.session_state.rows):
+                    st.write(f"Row {i + 1}:")
+                    st.write(f"EMP ID: {row['emp_id']}")
+                    st.write(f"Agent Name: {row['agent_name']}")
+                    st.write(f"Contact No.: {row['contact_no']}")
+                    st.write(f"Official Email: {row['official_email']}")
+                    st.write(f"Department: {row['department']}")
+                    st.write(f"Trainer Name: {row['trainer_name']}")
+                    st.write(f"Batch No: {row['batch_no']}")
 
     else:
-        # Display the full form for other centers
+        # Display the full form for other centers (non-Kolkata)
         emp_id = st.text_input("EMP ID")
         candidate_name = st.text_input("Candidate Name")
         mobile_no = st.text_input("Mobile No.")
