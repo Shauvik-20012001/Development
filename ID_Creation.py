@@ -107,14 +107,16 @@ def show_form():
             "Enter Row Number to Delete (1-based index):",
             min_value=1,
             max_value=len(df),
-            step=1
+            step=1,
+            key="row_to_delete"  # Unique key for this widget
         )
-        if st.button("Delete Row"):
+        delete_button = st.button("Delete Row", key="delete_button")  # Unique key for delete button
+
+        if delete_button:
             # Adjust for 1-based index
             if 1 <= row_to_delete <= len(df):
                 st.session_state.data.pop(row_to_delete - 1)
                 st.success(f"Row {row_to_delete} deleted successfully!")
-                # The table will refresh automatically, no need for rerun
             else:
                 st.error("Invalid row number")
 
