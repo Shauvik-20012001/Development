@@ -109,14 +109,15 @@ def show_form():
             key="row_to_delete"  # Unique key for this widget
         )
 
+        # Only delete when the "Delete Row" button is pressed
         delete_button = st.button("Delete Row", key="delete_button")  # Unique key for delete button
 
         if delete_button:
-            # Check if the row number to delete is valid
+            # Ensure the row number is within valid range and delete the row
             if 1 <= row_to_delete <= len(df):
                 st.session_state.data.pop(row_to_delete - 1)
                 st.success(f"Row {row_to_delete} deleted successfully!")
-                # No need to force rerun. Table will refresh automatically.
+                # Table will automatically refresh after the state update.
 
     # Submit button for the form
     if st.button("Submit"):
