@@ -65,14 +65,7 @@ def show_form():
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
-                # Clear inputs manually
-                st.session_state.emp_id = ""
-                st.session_state.agent_name = ""
-                st.session_state.contact_no = ""
-                st.session_state.official_email = ""
-                st.session_state.department = ""
-                st.session_state.trainer_name = ""
-                st.session_state.batch_no = ""
+                # No need to manually clear session_state variables. Input fields will reset automatically.
 
     else:
         # Form for other centers
@@ -99,14 +92,7 @@ def show_form():
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
-                # Clear inputs manually
-                st.session_state.emp_id = ""
-                st.session_state.candidate_name = ""
-                st.session_state.mobile_no = ""
-                st.session_state.mail_id = ""
-                st.session_state.process_name = ""
-                st.session_state.batch_no = ""
-                st.session_state.trainer = ""
+                # No need to manually clear session_state variables. Input fields will reset automatically.
 
     # Displaying the table of all added rows
     if st.session_state.data:
