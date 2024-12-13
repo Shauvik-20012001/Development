@@ -26,6 +26,8 @@ def show_login_page():
             st.session_state.employee_type = Employee_type  # Store selected employee type
             st.session_state.process = Process  # Store selected process in session state
             st.session_state.form_displayed = True  # Flag to track whether form is displayed
+            if "rows" not in st.session_state:
+                st.session_state.rows = []  # Initialize rows in session state
         else:
             st.error("Invalid username or password")
 
@@ -35,33 +37,57 @@ def show_form():
 
     # Check if the selected center is Kolkata
     if st.session_state.center == "Kolkata":
-        # Display fields for Kolkata
-        emp_id = st.text_input("EMP ID")
-        agent_name = st.text_input("Agent Name")
-        contact_no = st.text_input("Contact No:")
-        official_email = st.text_input("Official Email_ID:")
-        department = st.text_input("Department Name:")
-        trainer_name = st.text_input("Trainer Name:")
-        batch_no = st.text_input("Batch No:")
+        # Display the form fields for Kolkata (Name, EMP ID, etc.)
+        if "rows" not in st.session_state:
+            st.session_state.rows = []
+
+        # Add button for adding rows
+        if st.button("Add Row"):
+            # Add a new row (dict to store values)
+            st.session_state.rows.append({
+                "emp_id": "",
+                "agent_name": "",
+                "contact_no": "",
+                "official_email": "",
+                "department": "",
+                "trainer_name": "",
+                "batch_no": ""
+            })
+
+        # Display rows
+        for i, row in enumerate(st.session_state.rows):
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                row["emp_id"] = st.text_input(f"EMP ID {i+1}", value=row["emp_id"], key=f"emp_id_{i}")
+            with col2:
+                row["agent_name"] = st.text_input(f"Agent Name {i+1}", value=row["agent_name"], key=f"agent_name_{i}")
+            with col3:
+                row["contact_no"] = st.text_input(f"Contact No. {i+1}", value=row["contact_no"], key=f"contact_no_{i}")
+
+            # Delete button for each row
+            delete_button = st.button(f"Delete Row {i+1}", key=f"delete_{i}")
+            if delete_button:
+                del st.session_state.rows[i]
+                st.experimental_rerun()  # Rerun to update the rows after deletion
 
         # Submit button for the form
         if st.button("Submit"):
-            # Check if any field is left empty
-            if not emp_id or not agent_name or not contact_no or not official_email or not department or not trainer_name or not batch_no:
-                st.error("Please fill in all the fields.")
-            else:
-                # If all fields are filled, proceed with the submission
+            # Check if all rows have all fields filled
+            all_fields_filled = True
+            for row in st.session_state.rows:
+                if not row["emp_id"] or not row["agent_name"] or not row["contact_no"] or not row["official_email"] or not row["department"] or not row["trainer_name"] or not row["batch_no"]:
+                    all_fields_filled = False
+                    break
+
+            if all_fields_filled:
                 st.write("Form submitted successfully!")
-                st.write(f"EMP ID: {emp_id}")
-                st.write(f"Agent Name: {agent_name}")
-                st.write(f"Contact No: {contact_no}")
-                st.write(f"Official Email_ID: {official_email}")
-                st.write(f"Department: {department}")
-                st.write(f"Trainer Name: {trainer_name}")
-                st.write(f"Batch No: {batch_no}")
+                for row in st.session_state.rows:
+                    st.write(f"EMP ID: {row['emp_id']}, Agent Name: {row['agent_name']}, Contact No: {row['contact_no']}, Official Email: {row['official_email']}, Department: {row['department']}, Trainer: {row['trainer_name']}, Batch No: {row['batch_no']}")
+            else:
+                st.error("Please fill in all the fields.")
 
     else:
-        # Full form for other centers (same as before)
+        # Full form for other centers
         emp_id = st.text_input("EMP ID")
         candidate_name = st.text_input("Candidate Name")
         mobile_no = st.text_input("Mobile No.")
