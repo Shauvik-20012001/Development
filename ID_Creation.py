@@ -65,7 +65,6 @@ def show_form():
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
-                # No need to manually clear session_state variables. Input fields will reset automatically.
 
     else:
         # Form for other centers
@@ -92,7 +91,6 @@ def show_form():
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
-                # No need to manually clear session_state variables. Input fields will reset automatically.
 
     # Displaying the table of all added rows
     if st.session_state.data:
@@ -117,7 +115,7 @@ def show_form():
             if 1 <= row_to_delete <= len(df):
                 st.session_state.data.pop(row_to_delete - 1)
                 st.success(f"Row {row_to_delete} deleted successfully!")
-                # Table will automatically refresh after the state update.
+                # The table should refresh automatically after this, as the state is updated.
 
     # Submit button for the form
     if st.button("Submit"):
