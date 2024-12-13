@@ -17,7 +17,6 @@ def show_login_page():
     # Conditional Process dropdown based on Employee Type and Center
     Process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
 
-
     # Login button
     if st.button("Login"):
         if username == "admin" and password == "admin":  # Simple login check
@@ -34,31 +33,48 @@ def show_login_page():
 def show_form():
     st.title("Fill the Form")
 
-    # Input fields for the form
-    emp_id = st.text_input("EMP ID")
-    candidate_name = st.text_input("Candidate Name")
-    mobile_no = st.text_input("Mobile No.")
-    mail_id = st.text_input("Mail ID")
-    process_name = st.text_input("Process Name")
-    batch_no = st.text_input("Batch No.")
-    trainer = st.text_input("Trainer")
+    # Check if the selected center is Kolkata
+    if st.session_state.center == "Kolkata":
+        # Display only Name and EMP ID fields for Kolkata
+        emp_id = st.text_input("EMP ID")
+        candidate_name = st.text_input("Candidate Name")
 
-    # Submit button for the form
-    if st.button("Submit"):
-        # Check if all fields are filled
-        if not emp_id or not candidate_name or not mobile_no or not mail_id or not process_name or not batch_no or not trainer:
-            st.error("Please fill in all the fields.")
-        else:
-            # If all fields are filled, proceed with the submission
-            st.write("Form submitted successfully!")
-            # You can process and save form data here
-            st.write(f"EMP ID: {emp_id}")
-            st.write(f"Candidate Name: {candidate_name}")
-            st.write(f"Mobile No.: {mobile_no}")
-            st.write(f"Mail ID: {mail_id}")
-            st.write(f"Process Name: {process_name}")
-            st.write(f"Batch No.: {batch_no}")
-            st.write(f"Trainer: {trainer}")
+        # Submit button for the form
+        if st.button("Submit"):
+            # Check if both fields are filled
+            if not emp_id or not candidate_name:
+                st.error("Please fill in both fields.")
+            else:
+                # If both fields are filled, proceed with the submission
+                st.write("Form submitted successfully!")
+                st.write(f"EMP ID: {emp_id}")
+                st.write(f"Candidate Name: {candidate_name}")
+    else:
+        # Display the full form for other centers
+        emp_id = st.text_input("EMP ID")
+        candidate_name = st.text_input("Candidate Name")
+        mobile_no = st.text_input("Mobile No.")
+        mail_id = st.text_input("Mail ID")
+        process_name = st.text_input("Process Name")
+        batch_no = st.text_input("Batch No.")
+        trainer = st.text_input("Trainer")
+
+        # Submit button for the form
+        if st.button("Submit"):
+            # Check if all fields are filled
+            if not emp_id or not candidate_name or not mobile_no or not mail_id or not process_name or not batch_no or not trainer:
+                st.error("Please fill in all the fields.")
+            else:
+                # If all fields are filled, proceed with the submission
+                st.write("Form submitted successfully!")
+                # You can process and save form data here
+                st.write(f"EMP ID: {emp_id}")
+                st.write(f"Candidate Name: {candidate_name}")
+                st.write(f"Mobile No.: {mobile_no}")
+                st.write(f"Mail ID: {mail_id}")
+                st.write(f"Process Name: {process_name}")
+                st.write(f"Batch No.: {batch_no}")
+                st.write(f"Trainer: {trainer}")
 
 # Main function to control the flow of the app
 def main():
