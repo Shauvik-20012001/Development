@@ -67,7 +67,7 @@ def show_form():
             if st.button("Delete Row"):
                 remove_row()
 
-        # Display all added rows
+        # Display the rows of input fields
         for i, row in enumerate(st.session_state.rows):
             with st.expander(f"Row {i + 1}"):
                 row["emp_id"] = st.text_input(f"EMP ID {i + 1}", value=row["emp_id"], key=f"emp_id_{i}")
