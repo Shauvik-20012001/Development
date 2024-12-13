@@ -42,16 +42,16 @@ def show_form():
     # Display and manage rows
     if st.session_state.center == "Kolkata":
         # Specific form for Kolkata
-        emp_id = st.text_input("EMP ID")
-        agent_name = st.text_input("Agent Name")
-        contact_no = st.text_input("Contact No:")
-        official_email = st.text_input("Official Email_ID:")
-        department = st.text_input("Department Name:")
-        trainer_name = st.text_input("Trainer Name:")
-        batch_no = st.text_input("Batch No:")
+        emp_id = st.text_input("EMP ID", key="emp_id")
+        agent_name = st.text_input("Agent Name", key="agent_name")
+        contact_no = st.text_input("Contact No:", key="contact_no")
+        official_email = st.text_input("Official Email_ID:", key="official_email")
+        department = st.text_input("Department Name:", key="department")
+        trainer_name = st.text_input("Trainer Name:", key="trainer_name")
+        batch_no = st.text_input("Batch No:", key="batch_no")
 
         # Add Row functionality
-        if st.button("Add Row"):
+        if st.button("Add Row", key="add_row"):
             # Validate inputs and add a new row
             if emp_id and agent_name and contact_no and official_email and department and trainer_name and batch_no:
                 new_row = {
@@ -66,20 +66,26 @@ def show_form():
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
                 # Clear inputs manually
-                emp_id = agent_name = contact_no = official_email = department = trainer_name = batch_no = ""
+                st.session_state.emp_id = ""
+                st.session_state.agent_name = ""
+                st.session_state.contact_no = ""
+                st.session_state.official_email = ""
+                st.session_state.department = ""
+                st.session_state.trainer_name = ""
+                st.session_state.batch_no = ""
 
     else:
         # Form for other centers
-        emp_id = st.text_input("EMP ID")
-        candidate_name = st.text_input("Candidate Name")
-        mobile_no = st.text_input("Mobile No.")
-        mail_id = st.text_input("Mail ID")
-        process_name = st.text_input("Process Name")
-        batch_no = st.text_input("Batch No.")
-        trainer = st.text_input("Trainer")
+        emp_id = st.text_input("EMP ID", key="emp_id")
+        candidate_name = st.text_input("Candidate Name", key="candidate_name")
+        mobile_no = st.text_input("Mobile No.", key="mobile_no")
+        mail_id = st.text_input("Mail ID", key="mail_id")
+        process_name = st.text_input("Process Name", key="process_name")
+        batch_no = st.text_input("Batch No.", key="batch_no")
+        trainer = st.text_input("Trainer", key="trainer")
 
         # Add Row functionality
-        if st.button("Add Row"):
+        if st.button("Add Row", key="add_row"):
             # Validate inputs and add a new row
             if emp_id and candidate_name and mobile_no and mail_id and process_name and batch_no and trainer:
                 new_row = {
@@ -94,7 +100,13 @@ def show_form():
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
                 # Clear inputs manually
-                emp_id = candidate_name = mobile_no = mail_id = process_name = batch_no = trainer = ""
+                st.session_state.emp_id = ""
+                st.session_state.candidate_name = ""
+                st.session_state.mobile_no = ""
+                st.session_state.mail_id = ""
+                st.session_state.process_name = ""
+                st.session_state.batch_no = ""
+                st.session_state.trainer = ""
 
     # Displaying the table of all added rows
     if st.session_state.data:
@@ -118,9 +130,7 @@ def show_form():
             if 1 <= row_to_delete <= len(df):
                 st.session_state.data.pop(row_to_delete - 1)
                 st.success(f"Row {row_to_delete} deleted successfully!")
-                # Automatically refresh the table by updating the session state
-            else:
-                st.error("Invalid row number")
+                # No need to force rerun. Table will refresh automatically.
 
     # Submit button for the form
     if st.button("Submit"):
