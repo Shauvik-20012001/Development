@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import re
 
 # Function to display login page with "Center" dropdown
 def show_login_page():
@@ -31,6 +32,15 @@ def show_login_page():
         else:
             st.error("Invalid username or password")
 
+# Function to validate email format
+def is_valid_email(email):
+    email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+    return re.match(email_regex, email) is not None
+
+# Function to validate contact number (must be exactly 10 digits)
+def is_valid_contact_number(contact_number):
+    return contact_number.isdigit() and len(contact_number) == 10
+
 # Function to display the form after login
 def show_form():
     st.title("Fill the Form")
@@ -52,8 +62,14 @@ def show_form():
 
         # Add Row functionality
         if st.button("Add Row", key="add_row"):
-            # Validate inputs and add a new row
-            if emp_id and agent_name and contact_no and official_email and department and trainer_name and batch_no:
+            # Validate inputs before adding a new row
+            if not emp_id or not agent_name or not contact_no or not official_email or not department or not trainer_name or not batch_no:
+                st.error("Please fill in all fields!")
+            elif not is_valid_email(official_email):
+                st.error("Please enter a valid email address.")
+            elif not is_valid_contact_number(contact_no):
+                st.error("Contact number must be 10 digits.")
+            else:
                 new_row = {
                     "EMP ID": emp_id,
                     "Agent Name": agent_name,
@@ -78,8 +94,14 @@ def show_form():
 
         # Add Row functionality
         if st.button("Add Row", key="add_row"):
-            # Validate inputs and add a new row
-            if emp_id and candidate_name and mobile_no and mail_id and process_name and batch_no and trainer:
+            # Validate inputs before adding a new row
+            if not emp_id or not candidate_name or not mobile_no or not mail_id or not process_name or not batch_no or not trainer:
+                st.error("Please fill in all fields!")
+            elif not is_valid_email(mail_id):
+                st.error("Please enter a valid email address.")
+            elif not is_valid_contact_number(mobile_no):
+                st.error("Mobile number must be 10 digits.")
+            else:
                 new_row = {
                     "EMP ID": emp_id,
                     "Candidate Name": candidate_name,
