@@ -7,7 +7,7 @@ def set_background_color(color):
     st.markdown(
         f"""
         <style>
-        .reportview-container {{
+        body {{
             background-color: {color};
         }}
         </style>
