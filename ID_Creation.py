@@ -23,22 +23,34 @@ def show_login_page():
 
     Batch_No = st.text_input("Batch No:")
 
+    # Initialize the counter for login clicks
+    if "login_click_count" not in st.session_state:
+        st.session_state.login_click_count = 0
+
     # Login button
     if st.button("Login"):
-        # Check if the Batch No is provided
-        if not Batch_No:
-            st.error("Please enter a Batch No!")
-        elif username == "admin" and password == "admin":  # Simple login check
-            st.session_state.logged_in = True
-            st.session_state.username = username
-            st.session_state.center = center  # Store selected center in session state
-            st.session_state.employee_type = employee_type  # Store selected employee type
-            st.session_state.process = process  # Store selected process in session state
-            st.session_state.Batch_No = Batch_No
-            st.session_state.form_displayed = True  # Flag to track whether form is displayed
-            st.session_state.data = []  # Initialize the list to hold the form data
+        # Increment the login click counter
+        st.session_state.login_click_count += 1
+
+        # If the button is clicked twice
+        if st.session_state.login_click_count == 2:
+            # Check if the Batch No is provided
+            if not Batch_No:
+                st.error("Please enter a Batch No!")
+            elif username == "admin" and password == "admin":  # Simple login check
+                st.session_state.logged_in = True
+                st.session_state.username = username
+                st.session_state.center = center  # Store selected center in session state
+                st.session_state.employee_type = employee_type  # Store selected employee type
+                st.session_state.process = process  # Store selected process in session state
+                st.session_state.Batch_No = Batch_No
+                st.session_state.form_displayed = True  # Flag to track whether form is displayed
+                st.session_state.data = []  # Initialize the list to hold the form data
+                st.session_state.login_click_count = 0  # Reset click count
+            else:
+                st.error("Invalid username or password")
         else:
-            st.error("Invalid username or password")
+            st.text("Click twice to login")  # Show message after first click
 
 # Function to validate email format
 def is_valid_email(email):
