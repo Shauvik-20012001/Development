@@ -21,6 +21,8 @@ def show_login_page():
     # Conditional Process dropdown based on Employee Type and Center
     process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
 
+    Department = st.selectbox("Select Process", ["Consent", "LROD", "Collection"])
+
     Batch_No = st.text_input("Batch No:")
 
     # Login button
@@ -34,6 +36,7 @@ def show_login_page():
             st.session_state.center = center  # Store selected center in session state
             st.session_state.employee_type = employee_type  # Store selected employee type
             st.session_state.process = process  # Store selected process in session state
+            st.session_state.process = Department
             st.session_state.Batch_No = Batch_No
             st.session_state.form_displayed = True  # Flag to track whether form is displayed
             st.session_state.data = []  # Initialize the list to hold the form data
