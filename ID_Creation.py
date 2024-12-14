@@ -57,6 +57,13 @@ def show_form():
     if "data" not in st.session_state:
         st.session_state.data = []
 
+    # Department dropdown options based on process
+    department_options = {
+        "Collection": ["Dept A", "Dept B", "Dept C"],
+        "Non_Collection": ["Dept D", "Dept E", "Dept F"],
+        "Customer Support": ["Dept G", "Dept H", "Dept I"]
+    }
+
     # Display and manage rows
     if st.session_state.center == "KOLKATA":
         # Specific form for Kolkata
@@ -64,7 +71,10 @@ def show_form():
         agent_name = st.text_input("Agent Name", key="agent_name")
         contact_no = st.text_input("Contact No:", key="contact_no")
         official_email = st.text_input("Official Email_ID:", key="official_email")
-        department = st.text_input("Department Name:", key="department")
+        
+        # Dynamically show department options based on the selected process
+        department = st.selectbox("Department Name:", department_options[st.session_state.process])
+        
         trainer_name = st.text_input("Trainer Name:", key="trainer_name")
 
         # Add a 'Designation' field if Employee Type is SLT
@@ -84,26 +94,19 @@ def show_form():
                 st.error("Contact number must be 10 digits.")
             elif st.session_state.employee_type == "SLT" and not designation:
                 st.error("Please enter the Designation for SLT employees.")
-            elif st.session_state.employee_type == "SLT":
-                # Process-specific validation for SLT Designation
-                if st.session_state.process == "Collection" and designation != "Team Leader":
-                    st.error("For Collection process, Designation must be 'Team Leader'.")
-                elif st.session_state.process == "Non_Collection" and designation != "Agent":
-                    st.error("For Non_Collection process, Designation must be 'Agent'.")
-                elif st.session_state.process == "Customer Support" and designation != "Support Executive":
-                    st.error("For Customer Support process, Designation must be 'Support Executive'.")
-                else:
-                    new_row = {
-                        "EMP ID": emp_id,
-                        "Agent Name": agent_name,
-                        "Contact No": contact_no,
-                        "Official Email_ID": official_email,
-                        "Department": department,
-                        "Trainer Name": trainer_name,
-                        "Designation": designation if designation else ""  # Include designation if provided
-                    }
-                    st.session_state.data.append(new_row)
-                    st.success("Row added successfully!")
+            else:
+                new_row = {
+                    "EMP ID": emp_id,
+                    "Agent Name": agent_name,
+                    "Contact No": contact_no,
+                    "Official Email_ID": official_email,
+                    "Department": department,
+                    "Trainer Name": trainer_name,
+                    "Designation": designation if designation else ""  # Include designation if provided
+                }
+                st.session_state.data.append(new_row)
+                st.success("Row added successfully!")
+
     else:
         # Form for other centers
         emp_id = st.text_input("EMP ID", key="emp_id")
