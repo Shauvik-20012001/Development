@@ -59,9 +59,10 @@ def show_form():
 
     # Department dropdown options based on process
     department_options = {
-        "Collection": ["Dept A", "Dept B", "Dept C"],
-        "Non_Collection": ["Dept D", "Dept E", "Dept F"],
-        "Customer Support": ["Dept G", "Dept H", "Dept I"]
+        "Collection": ["Consent", "LROD", "Collection"],
+        "Non_Collection": ["SE_Onbording", "ST_Onbording", "SIB_Onbording", "SIC_Onbording" , "SE_Credit check" , "SIC_Credit check","GRO inbound","V_KYC","Risk"
+                          ,"SIB_Credit check", "ST_Credit check","CC_NO_Loan","CC_Initiator_SIC","CC_Initiator_Student","CC_Initiator_SE","CC_Initiator_SIB","RRR"],
+        "Customer Support": ["Email"]
     }
 
     # Display and manage rows
