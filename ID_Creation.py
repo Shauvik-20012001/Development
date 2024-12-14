@@ -23,36 +23,23 @@ def show_login_page():
 
     Batch_No = st.text_input("Batch No:")
 
-    # Initialize session state for the first click
-    if "login_click_count" not in st.session_state:
-        st.session_state.login_click_count = 0
-    
     # Login button
     if st.button("Login"):
-        # Track the number of clicks
-        st.session_state.login_click_count += 1
-
-        # Only allow login after the second click
-        if st.session_state.login_click_count == 2:
-            # Check if the Batch No is provided
-            if not Batch_No:
-                st.error("Please enter a Batch No!")
-            elif username == "admin" and password == "admin":  # Simple login check
-                st.session_state.logged_in = True
-                st.session_state.username = username
-                st.session_state.center = center  # Store selected center in session state
-                st.session_state.employee_type = employee_type  # Store selected employee type
-                st.session_state.process = process  # Store selected process in session state
-                st.session_state.Batch_No = Batch_No
-                st.session_state.form_displayed = True  # Flag to track whether form is displayed
-                st.session_state.data = []  # Initialize the list to hold the form data
-            else:
-                st.error("Invalid username or password")
-            # Reset click count for next time
-            st.session_state.login_click_count = 0
+        # Check if the Batch No is provided
+        if not Batch_No:
+            st.error("Please enter a Batch No!")
+        elif username == "admin" and password == "admin":  # Simple login check
+            st.session_state.logged_in = True
+            st.session_state.username = username
+            st.session_state.center = center  # Store selected center in session state
+            st.session_state.employee_type = employee_type  # Store selected employee type
+            st.session_state.process = process  # Store selected process in session state
+            st.session_state.Batch_No = Batch_No
+            st.session_state.form_displayed = True  # Flag to track whether form is displayed
+            st.session_state.data = []  # Initialize the list to hold the form data
         else:
-            st.info("Please click the button again to login.")
-    
+            st.error("Invalid username or password")
+
 # Function to validate email format
 def is_valid_email(email):
     email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
