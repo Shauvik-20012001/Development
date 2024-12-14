@@ -84,19 +84,26 @@ def show_form():
                 st.error("Contact number must be 10 digits.")
             elif st.session_state.employee_type == "SLT" and not designation:
                 st.error("Please enter the Designation for SLT employees.")
-            else:
-                new_row = {
-                    "EMP ID": emp_id,
-                    "Agent Name": agent_name,
-                    "Contact No": contact_no,
-                    "Official Email_ID": official_email,
-                    "Department": department,
-                    "Trainer Name": trainer_name,
-                    "Designation": designation if designation else ""  # Include designation if provided
-                }
-                st.session_state.data.append(new_row)
-                st.success("Row added successfully!")
-
+            elif st.session_state.employee_type == "SLT":
+                # Process-specific validation for SLT Designation
+                if st.session_state.process == "Collection" and designation != "Team Leader":
+                    st.error("For Collection process, Designation must be 'Team Leader'.")
+                elif st.session_state.process == "Non_Collection" and designation != "Agent":
+                    st.error("For Non_Collection process, Designation must be 'Agent'.")
+                elif st.session_state.process == "Customer Support" and designation != "Support Executive":
+                    st.error("For Customer Support process, Designation must be 'Support Executive'.")
+                else:
+                    new_row = {
+                        "EMP ID": emp_id,
+                        "Agent Name": agent_name,
+                        "Contact No": contact_no,
+                        "Official Email_ID": official_email,
+                        "Department": department,
+                        "Trainer Name": trainer_name,
+                        "Designation": designation if designation else ""  # Include designation if provided
+                    }
+                    st.session_state.data.append(new_row)
+                    st.success("Row added successfully!")
     else:
         # Form for other centers
         emp_id = st.text_input("EMP ID", key="emp_id")
