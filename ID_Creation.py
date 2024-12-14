@@ -21,7 +21,6 @@ def show_login_page():
     # Conditional Process dropdown based on Employee Type and Center
     process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
 
-
     Batch_No = st.text_input("Batch No:")
 
     # Login button
@@ -68,15 +67,23 @@ def show_form():
         department = st.text_input("Department Name:", key="department")
         trainer_name = st.text_input("Trainer Name:", key="trainer_name")
 
+        # Add a 'Designation' field if Employee Type is SLT
+        if st.session_state.employee_type == "SLT":
+            designation = st.text_input("Designation:", key="designation")
+        else:
+            designation = None  # Skip the designation field for other employee types
+
         # Add Row functionality
         if st.button("Add Row", key="add_row"):
             # Validate inputs before adding a new row
-            if not emp_id or not agent_name or not contact_no or not official_email or not department or not trainer_name :
+            if not emp_id or not agent_name or not contact_no or not official_email or not department or not trainer_name:
                 st.error("Please fill in all fields, including Batch No!")
             elif not is_valid_email(official_email):
                 st.error("Please enter a valid email address.")
             elif not is_valid_contact_number(contact_no):
                 st.error("Contact number must be 10 digits.")
+            elif st.session_state.employee_type == "SLT" and not designation:
+                st.error("Please enter the Designation for SLT employees.")
             else:
                 new_row = {
                     "EMP ID": emp_id,
@@ -84,7 +91,8 @@ def show_form():
                     "Contact No": contact_no,
                     "Official Email_ID": official_email,
                     "Department": department,
-                    "Trainer Name": trainer_name
+                    "Trainer Name": trainer_name,
+                    "Designation": designation if designation else ""  # Include designation if provided
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
