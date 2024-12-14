@@ -21,7 +21,15 @@ def show_login_page():
     # Conditional Process dropdown based on Employee Type and Center
     process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
 
-    Department = st.selectbox("Select Process", ["Consent", "LROD", "Collection"])
+    if process == "Collection":
+        department = st.selectbox("Select Department", ["Consent", "LROD", "Collection"])
+    elif process == "Non_Collection":
+        department = st.selectbox("Select Department", ["SE_Onbording", "ST_Onbording" , "SIB_Onbording", "SIC_Onbording","V_KYC","RRR","Risk",
+                                                       "SE_Credit check" , "SIC_Credit check" , "SIB_Credit check", "ST_Credit check", "CC_NO_Loan", 
+                                                       "CC_Initiator_SIC" , "CC_Initiator_Student" , "CC_Initiator_SE", "CC_Initiator_SIB", "GRO inbound"])
+    else:
+        department = st.selectbox("Select Department", ["Customer Support"])
+
 
     Batch_No = st.text_input("Batch No:")
 
