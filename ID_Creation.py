@@ -2,21 +2,6 @@ import streamlit as st
 import pandas as pd
 import re
 
-# Function to set the background image for the app
-def set_background_image():
-    st.markdown(
-        """
-        <style>
-        body {
-            background-image: url('https://about.canva.com/wp-content/uploads/sites/8/2019/03/blue.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        </style>
-        """, unsafe_allow_html=True
-    )
-
 # Function to display login page with "Center" dropdown
 def show_login_page():
     st.title("Login Page")
@@ -26,7 +11,9 @@ def show_login_page():
     password = st.text_input("Password", type='password')
     
     # Center dropdown for selection
-    center = st.selectbox("Select Center", ["Kolkata", "Indore", "Mysore", "Bhopal", "Ranchi"])
+    center = st.selectbox("Select Center", ["KOLKATA", "INDORE-TARUS", "MYSORE-TTBS",
+                                            "BHOPAL-TTBS", "RANCHI-AYUDA","BHOPAL-MGM","COIM-HRHNXT"
+                                            ,"NOIDA-ICCS", "HYD-CORPONE" , "VIJAYAWADA-TTBS" ])
     
     # Employee Type dropdown
     employee_type = st.selectbox("Select Employee Type", ["SLT", "DCS"])
@@ -34,14 +21,20 @@ def show_login_page():
     # Conditional Process dropdown based on Employee Type and Center
     process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
 
+    Batch_No = st.text_input("Batch No:")
+
     # Login button
     if st.button("Login"):
-        if username == "admin" and password == "admin":  # Simple login check
+        # Check if the Batch No is provided
+        if not Batch_No:
+            st.error("Please enter a Batch No!")
+        elif username == "admin" and password == "admin":  # Simple login check
             st.session_state.logged_in = True
             st.session_state.username = username
             st.session_state.center = center  # Store selected center in session state
             st.session_state.employee_type = employee_type  # Store selected employee type
             st.session_state.process = process  # Store selected process in session state
+            st.session_state.Batch_No = Batch_No
             st.session_state.form_displayed = True  # Flag to track whether form is displayed
             st.session_state.data = []  # Initialize the list to hold the form data
         else:
@@ -64,26 +57,44 @@ def show_form():
     if "data" not in st.session_state:
         st.session_state.data = []
 
+    # Department dropdown options based on process
+    department_options = {
+        "Collection": ["Consent", "LROD", "Collection"],
+        "Non_Collection": ["SE_Onbording", "ST_Onbording", "SIB_Onbording", "SIC_Onbording" , "SE_Credit check" , "SIC_Credit check","GRO inbound","V_KYC","Risk"
+                          ,"SIB_Credit check", "ST_Credit check","CC_NO_Loan","CC_Initiator_SIC","CC_Initiator_Student","CC_Initiator_SE","CC_Initiator_SIB","RRR"],
+        "Customer Support": ["Email"]
+    }
+
     # Display and manage rows
-    if st.session_state.center == "Kolkata":
+    if st.session_state.center == "KOLKATA":
         # Specific form for Kolkata
         emp_id = st.text_input("EMP ID", key="emp_id")
         agent_name = st.text_input("Agent Name", key="agent_name")
         contact_no = st.text_input("Contact No:", key="contact_no")
         official_email = st.text_input("Official Email_ID:", key="official_email")
-        department = st.text_input("Department Name:", key="department")
+        
+        # Dynamically show department options based on the selected process
+        department = st.selectbox("Department Name:", department_options[st.session_state.process])
+        
         trainer_name = st.text_input("Trainer Name:", key="trainer_name")
-        batch_no = st.text_input("Batch No:", key="batch_no")
+
+        # Add a 'Designation' field if Employee Type is SLT
+        if st.session_state.employee_type == "SLT":
+            designation = st.text_input("Designation:", key="designation")
+        else:
+            designation = None  # Skip the designation field for other employee types
 
         # Add Row functionality
         if st.button("Add Row", key="add_row"):
             # Validate inputs before adding a new row
-            if not emp_id or not agent_name or not contact_no or not official_email or not department or not trainer_name or not batch_no:
-                st.error("Please fill in all fields!")
+            if not emp_id or not agent_name or not contact_no or not official_email or not department or not trainer_name:
+                st.error("Please fill in all fields, including Batch No!")
             elif not is_valid_email(official_email):
                 st.error("Please enter a valid email address.")
             elif not is_valid_contact_number(contact_no):
                 st.error("Contact number must be 10 digits.")
+            elif st.session_state.employee_type == "SLT" and not designation:
+                st.error("Please enter the Designation for SLT employees.")
             else:
                 new_row = {
                     "EMP ID": emp_id,
@@ -92,7 +103,7 @@ def show_form():
                     "Official Email_ID": official_email,
                     "Department": department,
                     "Trainer Name": trainer_name,
-                    "Batch No": batch_no
+                    "Designation": designation if designation else ""  # Include designation if provided
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
@@ -104,13 +115,12 @@ def show_form():
         mobile_no = st.text_input("Mobile No.", key="mobile_no")
         mail_id = st.text_input("Mail ID", key="mail_id")
         process_name = st.text_input("Process Name", key="process_name")
-        batch_no = st.text_input("Batch No.", key="batch_no")
         trainer = st.text_input("Trainer", key="trainer")
 
         # Add Row functionality
         if st.button("Add Row", key="add_row"):
             # Validate inputs before adding a new row
-            if not emp_id or not candidate_name or not mobile_no or not mail_id or not process_name or not batch_no or not trainer:
+            if not emp_id or not candidate_name or not mobile_no or not mail_id or not process_name or not trainer:
                 st.error("Please fill in all fields!")
             elif not is_valid_email(mail_id):
                 st.error("Please enter a valid email address.")
@@ -123,7 +133,6 @@ def show_form():
                     "Mobile No": mobile_no,
                     "Mail ID": mail_id,
                     "Process Name": process_name,
-                    "Batch No": batch_no,
                     "Trainer": trainer
                 }
                 st.session_state.data.append(new_row)
@@ -165,9 +174,6 @@ def show_form():
 
 # Main function to control the flow of the app
 def main():
-    # Set background image
-    set_background_image()
-
     # Initialize session state if not already initialized
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
