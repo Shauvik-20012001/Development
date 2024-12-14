@@ -17,7 +17,7 @@ def set_background_color(color):
 
 # Function to display login page with "Center" dropdown
 def show_login_page():
-    set_background_color("#f0f8ff")  # Set background color for the login page
+    set_background_color("#83aed4")  # Set background color for the login page
     
     st.title("Login Page")
     
@@ -66,7 +66,7 @@ def is_valid_contact_number(contact_number):
 
 # Function to display the form after login
 def show_form():
-    set_background_color("#e6f7ff")  # Set background color for the form page
+    set_background_color("#83aed4")  # Set background color for the form page
 
     st.title("Fill the Form")
 
