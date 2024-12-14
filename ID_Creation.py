@@ -58,7 +58,7 @@ def show_form():
         st.session_state.data = []
 
     # Display and manage rows
-    if st.session_state.center == "Kolkata":
+    if st.session_state.center == "KOLKATA":
         # Specific form for Kolkata
         emp_id = st.text_input("EMP ID", key="emp_id")
         agent_name = st.text_input("Agent Name", key="agent_name")
