@@ -23,7 +23,10 @@ def show_login_page():
 
     # Login button
     if st.button("Login"):
-        if username == "admin" and password == "admin":  # Simple login check
+        # Check if the Batch No is provided
+        if not Batch_No:
+            st.error("Please enter a Batch No!")
+        elif username == "admin" and password == "admin":  # Simple login check
             st.session_state.logged_in = True
             st.session_state.username = username
             st.session_state.center = center  # Store selected center in session state
@@ -61,12 +64,13 @@ def show_form():
         official_email = st.text_input("Official Email_ID:", key="official_email")
         department = st.text_input("Department Name:", key="department")
         trainer_name = st.text_input("Trainer Name:", key="trainer_name")
+        batch_no = st.text_input("Batch No:", key="batch_no")  # Ensure this is filled for Kolkata
 
         # Add Row functionality
         if st.button("Add Row", key="add_row"):
             # Validate inputs before adding a new row
             if not emp_id or not agent_name or not contact_no or not official_email or not department or not trainer_name or not batch_no:
-                st.error("Please fill in all fields!")
+                st.error("Please fill in all fields, including Batch No!")
             elif not is_valid_email(official_email):
                 st.error("Please enter a valid email address.")
             elif not is_valid_contact_number(contact_no):
@@ -79,6 +83,7 @@ def show_form():
                     "Official Email_ID": official_email,
                     "Department": department,
                     "Trainer Name": trainer_name,
+                    "Batch No": batch_no  # Added Batch No in row data
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
