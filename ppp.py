@@ -5,7 +5,7 @@ def set_background_color(color):
     st.markdown(
         f"""
         <style>
-        .reportview-container {{
+        body {{
             background-color: {color};
         }}
         </style>
@@ -16,5 +16,5 @@ def set_background_color(color):
 # Set the background color to blue
 set_background_color("#0000FF")
 
-# Optional: Add some text or title to show on the page
+# Optional: Add a title or any other content to the page
 st.title("Blank Page with Blue Background")
