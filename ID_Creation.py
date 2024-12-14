@@ -19,6 +19,8 @@ def show_login_page():
     # Conditional Process dropdown based on Employee Type and Center
     process = st.selectbox("Select Process", ["Collection", "Non_Collection", "Customer Support"])
 
+    Batch_No = st.text_input("Batch No:")
+
     # Login button
     if st.button("Login"):
         if username == "admin" and password == "admin":  # Simple login check
@@ -27,6 +29,7 @@ def show_login_page():
             st.session_state.center = center  # Store selected center in session state
             st.session_state.employee_type = employee_type  # Store selected employee type
             st.session_state.process = process  # Store selected process in session state
+            st.session_state.Batch_No = Batch_No
             st.session_state.form_displayed = True  # Flag to track whether form is displayed
             st.session_state.data = []  # Initialize the list to hold the form data
         else:
@@ -58,7 +61,6 @@ def show_form():
         official_email = st.text_input("Official Email_ID:", key="official_email")
         department = st.text_input("Department Name:", key="department")
         trainer_name = st.text_input("Trainer Name:", key="trainer_name")
-        batch_no = st.text_input("Batch No:", key="batch_no")
 
         # Add Row functionality
         if st.button("Add Row", key="add_row"):
@@ -77,7 +79,6 @@ def show_form():
                     "Official Email_ID": official_email,
                     "Department": department,
                     "Trainer Name": trainer_name,
-                    "Batch No": batch_no
                 }
                 st.session_state.data.append(new_row)
                 st.success("Row added successfully!")
@@ -89,13 +90,12 @@ def show_form():
         mobile_no = st.text_input("Mobile No.", key="mobile_no")
         mail_id = st.text_input("Mail ID", key="mail_id")
         process_name = st.text_input("Process Name", key="process_name")
-        batch_no = st.text_input("Batch No.", key="batch_no")
         trainer = st.text_input("Trainer", key="trainer")
 
         # Add Row functionality
         if st.button("Add Row", key="add_row"):
             # Validate inputs before adding a new row
-            if not emp_id or not candidate_name or not mobile_no or not mail_id or not process_name or not batch_no or not trainer:
+            if not emp_id or not candidate_name or not mobile_no or not mail_id or not process_name or not trainer:
                 st.error("Please fill in all fields!")
             elif not is_valid_email(mail_id):
                 st.error("Please enter a valid email address.")
@@ -108,7 +108,6 @@ def show_form():
                     "Mobile No": mobile_no,
                     "Mail ID": mail_id,
                     "Process Name": process_name,
-                    "Batch No": batch_no,
                     "Trainer": trainer
                 }
                 st.session_state.data.append(new_row)
