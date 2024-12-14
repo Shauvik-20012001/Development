@@ -2,8 +2,23 @@ import streamlit as st
 import pandas as pd
 import re
 
+# Function to set background color
+def set_background_color(color):
+    st.markdown(
+        f"""
+        <style>
+        .reportview-container {{
+            background-color: {color};
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
 # Function to display login page with "Center" dropdown
 def show_login_page():
+    set_background_color("#f0f8ff")  # Set background color for the login page
+    
     st.title("Login Page")
     
     # Username and password input fields
@@ -51,6 +66,8 @@ def is_valid_contact_number(contact_number):
 
 # Function to display the form after login
 def show_form():
+    set_background_color("#e6f7ff")  # Set background color for the form page
+
     st.title("Fill the Form")
 
     # Initialize the data list if it's not already initialized
