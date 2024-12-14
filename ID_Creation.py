@@ -12,8 +12,8 @@ def show_login_page():
     
     # Center dropdown for selection
     center = st.selectbox("Select Center", ["KOLKATA", "INDORE-TARUS", "MYSORE-TTBS",
-                                            "BHOPAL-TTBS", "RANCHI-AYUDA","BHOPAL-MGM","COIM-HRHNXT"
-                                            ,"NOIDA-ICCS", "HYD-CORPONE" , "VIJAYAWADA-TTBS" ])
+                                            "BHOPAL-TTBS", "RANCHI-AYUDA", "BHOPAL-MGM", "COIM-HRHNXT",
+                                            "NOIDA-ICCS", "HYD-CORPONE", "VIJAYAWADA-TTBS"])
     
     # Employee Type dropdown
     employee_type = st.selectbox("Select Employee Type", ["SLT", "DCS"])
@@ -159,10 +159,10 @@ def main():
         st.session_state.logged_in = False
         st.session_state.form_displayed = False  # Ensure form is not displayed by default
 
-    if not st.session_state.logged_in:
-        show_login_page()  # Show login page if not logged in
-    else:
+    if st.session_state.logged_in:
         show_form()  # Show the form after login
+    else:
+        show_login_page()  # Show login page if not logged in
 
 if __name__ == "__main__":
     main()
