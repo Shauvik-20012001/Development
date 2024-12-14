@@ -174,6 +174,18 @@ def show_form():
 
 # Main function to control the flow of the app
 def main():
+    # Set the background color using CSS
+    st.markdown(
+        """
+        <style>
+        body {
+            background-color: #f0f0f5;  # Light gray background color
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
     # Initialize session state if not already initialized
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
