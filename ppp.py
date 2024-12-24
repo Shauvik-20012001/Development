@@ -58,8 +58,11 @@ def show_login_page():
         else:
             st.error("Invalid username or password")
 
-    if st.session_state.logged_in:
+    if st.session_state.logged_in:  # Display the form only if logged in
         st.session_state.form_displayed = True  # This ensures the form is displayed once logged in
+
+        # You can now proceed to call show_form() or display the form directly here
+        show_form()  # If you're moving form logic inside another function
 
 
 # Function to validate email format
